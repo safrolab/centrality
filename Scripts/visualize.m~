@@ -1,30 +1,49 @@
 %load('Newman/karate')
-%ssget('HB/lap_25')
-load('HB/lap_25')
+%ssget('HB/lap_25')%
+%load('HB/lap_25')
 %load('HB/saylr1')
+load('grid10x10.mat')
+%A = Problem.A;
+G = graph(A);
+A = G.adjacency;
+%plot(G)
 
-A = Problem.A;
+
 
 [~, n] = size(A);
+
 steps= 3;
 x = 0; %number of nodes with charging unit
 
 I = speye(n);
-A = A - I; %remove loops
+%A = A - I; %remove loops
 J = speye(n);
 for i=x+1:n
     J(i,i) =0;
 end
-J(1,1) = 1;
-J(2,2) =1;
-J(6,6)= 1;
-J(3,3) = 1;
-J(11,11) = 1;
-J(15,15)= 1;
-J(23,23)= 1;
-J(24,24) = 1;
-J(20,20) = 1;
-J(25,25) = 1;
+D = A*ones(n,1);
+for i = 1:n
+    if D(i) <=3
+        J(i,i) = 1;   
+    end
+end
+for i = 1:9
+    J(10+i,10+i) = 1; 
+    J(80+i,10+i) = 1; 
+    J(i*10+2,i*10+2) = 1; 
+    J(i*10+9,i*10+9) = 1; 
+end
+
+%J(1,1) = 1;
+%J(2,2) =1;
+%J(6,6)= 1;
+%J(3,3) = 1;
+%J(11,11) = 1;
+%J(15,15)= 1;
+%J(23,23)= 1;
+%J(24,24) = 1;
+%J(20,20) = 1;
+%J(25,25) = 1;
 %for i=x+1:n
 %    J(i,i) =0;
 %end
@@ -51,23 +70,21 @@ for i=0:steps-1
 end
 Y(1:n,:) = I;
 %spy(X'*B*X-A)
-u =33 ;
 Z = Y'*B^u*X;
 %spy(Z - A^u)
 spy(B)
 %spy(Z)
 Z(1,1);
 %clearvars
-a = 0.14;
+a = 0.1;
 clc
 W1  = (I- a*A)^(-1)*ones(n,1);
-W2 = Y'*(speye(n*steps) - a*B)^(-1)*X*ones(n,1)
-imagesc(W2)
-colormap('default')
-colorbar
-
-
-A = 1:50;          % matrix to draw
-colormap('hot');   % set colormap
-imagesc(A);        % draw image and scale colormap to values range
-colorbar;          % show color scale
+W2 = Y'*(speye(n*steps) - a*B)^(-1)*X*ones(n,1);
+colormap('jet');
+W1 = W1/norm(W1);
+W2 = W2/norm(W2);
+U = [W1';W2'];
+bar([W1,W2])
+%imagesc(U');
+%colorbar;
+%clear;

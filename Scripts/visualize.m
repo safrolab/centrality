@@ -1,31 +1,31 @@
-%load('Newman/karate')
+load('Newman/karate')
 %ssget('HB/lap_25')%
 %load('HB/lap_25')
 %load('HB/saylr1')
-load('grid10x10.mat')
-G = graph(A)
+%load('grid20x20.mat')
+%load('HB/1138_bus')
+A = Problem.A;
+G = graph(A);
 A = G.adjacency;
-plot(G)
+%plot(G)
 
-%A = Problem.A;
+
 
 [~, n] = size(A);
 
-steps= 3;
-x = 0; %number of nodes with charging unit
+steps= 4;
 
 I = speye(n);
 %A = A - I; %remove loops
-J = speye(n);
-for i=x+1:n
-    J(i,i) =0;
-end
+J = sparse(zeros(n));
+
 D = A*ones(n,1);
-for i = 1:n
-    if D(i) <= 3
-        J(i,i) = 1;
-    end
+for i = 1:10
+    %J(i,i) = 1; 
+    J(sort_order(i),sort_order(i)) = 1;   
 end
+
+
 %J(1,1) = 1;
 %J(2,2) =1;
 %J(6,6)= 1;
@@ -62,21 +62,22 @@ for i=0:steps-1
 end
 Y(1:n,:) = I;
 %spy(X'*B*X-A)
-u =33 ;
-Z = Y'*B^u*X;
+%Z = Y'*B^u*X;
 %spy(Z - A^u)
 spy(B)
 %spy(Z)
-Z(1,1);
 %clearvars
-a = 0.14;
-clc
-W1  = (I- a*A)^(-1)*ones(n,1);
-W2 = Y'*(speye(n*steps) - a*B)^(-1)*X*ones(n,1);
+a1 = 1/eigs(A,1) - 0.001;
+a2 = 1/eigs(B,1) - 0.001;
+W1  = (I- a1*A)^(-1)*ones(n,1);
+W2 = Y'*(speye(n*steps) - a2*B)^(-1)*X*ones(n,1);
 colormap('jet');
 W1 = W1/norm(W1);
 W2 = W2/norm(W2);
 U = [W1';W2'];
-imagesc(U');
-colorbar;
-clear;
+[newW1, sort_order] = sort(W1);
+newW2 = W2(sort_order,:);
+bar([newW1,newW2])
+%imagesc(U');
+%colorbar;
+%clear;
