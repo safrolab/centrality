@@ -1,10 +1,11 @@
-load('Newman/karate')
+%ssget('Newman/karate')
+%load('Newman/karate')
 %ssget('HB/lap_25')%
 %load('HB/lap_25')
 %load('HB/saylr1')
-%load('grid20x20.mat')
+load('grid10x10.mat')
 %load('HB/1138_bus')
-A = Problem.A;
+%A = Problem.A;
 G = graph(A);
 A = G.adjacency;
 %plot(G)
@@ -20,9 +21,11 @@ I = speye(n);
 J = sparse(zeros(n));
 
 D = A*ones(n,1);
+
 for i = 1:10
-    %J(i,i) = 1; 
-    J(sort_order(i),sort_order(i)) = 1;   
+    v = randi(n)
+    J(v,v) = 1; 
+    %J(sort_order(i),sort_order(i)) = 1;   
 end
 
 
@@ -64,11 +67,12 @@ Y(1:n,:) = I;
 %spy(X'*B*X-A)
 %Z = Y'*B^u*X;
 %spy(Z - A^u)
-spy(B)
+%spy(B)
 %spy(Z)
 %clearvars
-a1 = 1/eigs(A,1) - 0.001;
-a2 = 1/eigs(B,1) - 0.001;
+a1 = 1/eigs(A,1) - 0.01;
+%a1 = 0.1;
+a2 = 1/eigs(B,1) - 0.01;
 W1  = (I- a1*A)^(-1)*ones(n,1);
 W2 = Y'*(speye(n*steps) - a2*B)^(-1)*X*ones(n,1);
 colormap('jet');
@@ -77,7 +81,16 @@ W2 = W2/norm(W2);
 U = [W1';W2'];
 [newW1, sort_order] = sort(W1);
 newW2 = W2(sort_order,:);
-bar([newW1,newW2])
+
+plot([1:n]', newW1,'LineWidth',3)
+hold on
+scatter([1:n]', newW2, 'filled')
+hold off
+%bar([W1,W2])
+%bar([newW1,newW2])
+
 %imagesc(U');
 %colorbar;
+C = Y'*(B^10001 +B^10001 + B^10002+ B^10003+B^10004)*X;
+spy(C)
 %clear;
