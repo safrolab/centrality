@@ -91,6 +91,6 @@ hold off
 
 %imagesc(U');
 %colorbar;
-C = Y'*(B^10001 +B^10001 + B^10002+ B^10003+B^10004)*X;
-spy(C)
+%C = Y'*(B^10001 +B^10001 + B^10002+ B^10003+B^10004)*X;
+%spy(C)
 %clear;

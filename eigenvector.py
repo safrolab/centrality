@@ -8,7 +8,7 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import sparse
-import scipy
+import scipy, scipy.io
 #from networkx.drawing.nx_agraph import graphviz_layout
 from networkx.readwrite import json_graph
 import os, sys
@@ -45,7 +45,7 @@ def create_layer_graph(graph, levels, placement):
 if __name__ == '__main__':
     
     graph = nx.karate_club_graph()
-    graph = nx.erdos_renyi_graph(50,0.3)
+    # graph = nx.erdos_renyi_graph(50,0.3)
     #graph = nx.grid_2d_graph(2,2)
     #graph = nx.Graph()
     #graph.add_edge(1,2)
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     #graph.add_edge(3,1)
     
     levels = 3
-    placement = [1, 2, 3,4,5]
+    placement = [1, 2,3]
     #placement = []
     
     layer_graph = create_layer_graph(graph, levels, placement)
@@ -64,11 +64,15 @@ if __name__ == '__main__':
 
     print('number_of_nodes:', nx.number_of_nodes(graph), 'layered:', nx.number_of_nodes(layer_graph))
     mapping = dict(zip(nodes, range(len(nodes))))
-    print(mapping)
+    #print(mapping)
     H = nx.relabel_nodes(layer_graph, mapping)
     Adj = nx.adjacency_matrix(H,  nodelist=range(len(nodes)))
-    plt.spy(Adj**100)
-    plt.show()
+    
+    print(Adj[1,:])
+    #scipy.io.savemat('eigen.mat', dict(Adj=Adj))
+    
+    #plt.spy(Adj)
+    #plt.show()
     
                 
     
