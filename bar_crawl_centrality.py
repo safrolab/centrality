@@ -47,7 +47,31 @@ def normalized(a):
 
   return (a - a.min())/(a.max() - a.min())
 
-   
+def get_node_rank(centrality):
+  
+  return [i for _, i in sorted(zip(centrality, range(len(centrality))))]
+  
+def get_correlation(X, Y, labelled_nodes, steps):
+
+
+    coef = np.corrcoef(X,Y)
+    slope, intercept, r_value, p_value, std_err = stats.linregress(X,Y)
+    r_squared = r_value**2
+    #print('node:', labelled_nodes, coef[0][1], r_value, r_value**2)
+    m,b=np.polyfit(X,Y,1)
+    x = np.linspace(0,max(X))
+    y = m*x + b
+    plt.plot(X,Y, 'o')
+    plt.plot(x,y,'k')
+    plot_info = r'$\omega='+str(len(labelled_nodes))+ ',m='+str(steps)+',R^2='+str("%.3f" %r_squared)+'$'
+    plt.annotate(plot_info, xy=(1, 0), xycoords='axes fraction', fontsize=16,
+                xytext=(-5, 5), textcoords='offset points',
+                ha='right', va='bottom')
+    plt.xlabel("Katz")
+    plt.ylabel("Bounded Katz")
+    plt.ylim(0)
+    plt.show()
+ 
 def rank_nodes(graph, steps, labelled_nodes):
   
   n = nx.number_of_nodes(graph)
@@ -96,61 +120,41 @@ def rank_nodes(graph, steps, labelled_nodes):
   compare = True
   if compare:
     
-    eig_max_A =  sparse.linalg.eigs(Adj, k=1, return_eigenvectors=False, which='LM')
+    eig_max_A =  sparse.linalg.eigs(Adj, k=1, return_eigenvectors=False, which='LM',maxiter=34*10000)
 
-    #eig_max_B = sparse.linalg.eigs(B, k=1, return_eigenvectors=False, which='LM', maxiter=34*10000)
+    eig_max_B = sparse.linalg.eigs(B, k=1, return_eigenvectors=False, which='LM', maxiter=34*10000)
     eig_max_A = abs(list(eig_max_A)[0].real)
     #eig_max_B = list(eig_max_B)[0].real 
-    alpha1 = 1/eig_max_A - 0.02
+    alpha1 = 1/eig_max_A - 0.03
     #alpha2 = 1/eig_max_B - 0.02
-    alpha2 = 1/eig_max_A  -0.01
+    alpha2 = 1/eig_max_A  - 0.01
     
     #print(eig_max_A, eig_max_B)
     W1 = sparse.linalg.inv(I - alpha1*Adj)
     
     I_nXsteps = sparse.identity(n*steps, dtype='int')
     I_nXsteps = scipy.sparse.csc_matrix(I_nXsteps)
-    W2 = sparse.linalg.inv(I_nXsteps  - alpha1*B)
+    W2 = sparse.linalg.inv(I_nXsteps  - alpha2*B)
     #W1 = W1*(alpha1*Adj)**(steps )
     #W2 = W2*(alpha2*B)**(steps )
     W2 = Y.T * W2*X
     C1 = W1.dot(np.ones(n))
-    
+    initial_centrality = [1 if node not in labelled_nodes else 2 for node in sorted(graph.nodes())]
+    initial_centrality = np.array(initial_centrality)
+    C3 = W1.dot(initial_centrality)
     #Deg_centralilty = [nx.degree(graph, node) for node in sorted(graph.nodes())]
     C2 = W2.dot(np.ones(n))
-    for i in C2:
-      print(i)
-      if i <0:
+    rank_katz, mod_rank_katz, bounded_katz = get_node_rank(C1),get_node_rank(C3),get_node_rank(C2)
+    for i, cen in enumerate(C2):
+      if cen <0:
         raise ValueError("matrix inverse did not give correct result")
-
+    for i in range(len(rank_katz)):
+      print rank_katz[i], mod_rank_katz[i], bounded_katz[i]
     #C1 = normalized(C1)
     #C2 = normalized(C2)
-    coef = np.corrcoef(C1,C2)
-    slope, intercept, r_value, p_value, std_err = stats.linregress(C1,C2)
-    r_squared = r_value**2
-    print('node:', labelled_nodes, coef[0][1], r_value, r_value**2)
-    m,b=np.polyfit(C1,C2,1)
-    x = np.linspace(0,max(C1))
-
-    y = m*x + b
     
-    plt.plot(C1,C2, 'o')
-    plt.plot(x,y,'k')
-    plot_info = r'$\omega='+str(len(labelled_nodes))+ ',m='+str(steps)+',R^2='+str("%.3f" %r_squared)+'$'
-    plt.annotate(plot_info, xy=(1, 0), xycoords='axes fraction', fontsize=16,
-                xytext=(-5, 5), textcoords='offset points',
-                ha='right', va='bottom')
-    plt.xlabel("Katz")
-    plt.ylabel("Bounded Katz")
-    plt.ylim(0)
-    plt.show()
-    #C = sorted(zip(C1, C2))
-    #C1 = [i for i, _ in C]
-    #C2 = [i for _, i in C]
+    get_correlation(C3, C2, labelled_nodes, steps)
 
-    #plt.plot(sorted(C1))
-    #plt.plot(C2, 'o')
-    #plt.show()
   else:
     print("find max eig value... ") 
     eig_max_A =  sparse.linalg.eigs(Adj, k=1, return_eigenvectors=False)
@@ -187,9 +191,9 @@ def rank_nodes(graph, steps, labelled_nodes):
           print(node, graph.node[node]["community"], "degree", graph.degree(node), "labelled node")
         
 def draw_graph(graph):
-  pos = graphviz_layout(graph, prog='sfdp')
+  pos = graphviz_layout(graph, prog='dot')
   
-  nx.draw(graph, pos,  node_size=10, arrows=False,with_labels=True)
+  nx.draw(graph, pos,  node_color='white', node_size=400, arrows=False,with_labels=True)
   plt.show()
   
 
@@ -205,6 +209,78 @@ def extended_star_graph(n,m):
       G.add_edge(i + (j-1)*n,i + j*n)
 
   return G
+  
+  
+def star_path_star_graph(n, add_nodes):
+  
+  
+  star1 = nx.complete_bipartite_graph(1,n)
+  star2 = nx.complete_bipartite_graph(1,n)
+  mapping = dict(zip(range(n+1), range(n+1, 2*n+2)))
+  star2  = nx.relabel_nodes(star2, mapping)
+  print star1.nodes()
+  print star2.nodes()
+  graph = nx.union(star1, star2)
+  #path from n -->2n + 1 --> 2n + 2 --> .. --> 2n + add_nodes 
+  
+  if add_nodes:
+    path_graph = nx.path_graph(add_nodes)
+    mapping = dict(zip(range(add_nodes), range(2*(n+1), 2*(n+1) + add_nodes)))
+    path_graph = nx.relabel_nodes(path_graph, mapping)
+    graph = nx.union(graph, path_graph)
+    graph.add_edge(n,2*(n+1))
+    graph.add_edge(2*(n+1) + add_nodes -1, 2*n + 1)
+    draw_graph(graph)
+  else:
+    graph.add_edge(n, 2*n+1)
+  #draw_graph(graph)
+  centrality = nx.katz_centrality(graph,1/2.5758-0.01, normalized=True)
+  for n,c in sorted(centrality.items()):
+     print("%d %0.2f"%(n,c))
+  return graph
+   
+   
+def read_SNAP_graph(graphfile, source):
+  """ Return twitter graph. Edge (u,v) is v follows u 
+  This follows the model that a node sends information to it's followers"""
+  
+  if source == 'twitter':
+    edges = np.genfromtxt(graphfile, dtype='int')
+    
+    graph = nx.DiGraph()
+    
+    for u,v in edges:
+      if u != v:    
+        graph.add_edge(v,u)
+
+        
+    A = nx.adjacency_matrix(graph)
+    scipy.io.savemat('twitter.mat',{'A':A})
+    print("graph weakly connected?", nx.is_weakly_connected(graph))
+  elif source == 'fb':
+    edges = np.genfromtxt(graphfile, usecols=(0,1), dtype='int')
+    
+    graph = nx.Graph()
+    for u,v in edges:
+      if u != v:
+        graph.add_edge(u,v)
+     
+    Adj = nx.adjacency_matrix(graph)
+    scipy.io.savemat('facebook.mat',{'A':Adj})
+    print("num con comps", nx.number_connected_components(graph))
+  
+  elif source == 'friendster':
+    edges = np.genfromtxt(graphfile, delimiter=",", dtype='int')
+    graph = nx.Graph()
+    for u,v in edges:
+      if u != v:
+        graph.add_edge(u,v)
+    print graph.nodes()[1:10]
+    Adj = nx.adjacency_matrix(graph)
+    scipy.io.savemat('friendstar.mat',{'A':Adj})
+    print("num con comps", nx.number_connected_components(graph))
+    
+  return graph
       
 if __name__ == '__main__':
   #graphfile = "/home/hushiji/Research/centrality/Data/email-Eu-core.txt"
@@ -214,18 +290,29 @@ if __name__ == '__main__':
   
   #graph = nx.karate_club_graph()
   #graph = nx.star_graph(30)
-  graph = extended_star_graph(5, 25)
+  #graph = extended_star_graph(5, 25)
+  #graph = star_path_star_graph(6, 0)
+  #A = nx.adjacency_matrix(graph)
+  #scipy.io.savemat('star_path_star2.mat',{'A':A})
+  
+  twitter_file = '/home/hushiji/Research/centrality/Data/twitter_combined.txt'
+  fb_file = '/home/hushiji/Research/centrality/Data/facebook-links.txt'
+  friendster_file = '/home/hushiji/Research/centrality/Data/Friendster-dataset/data/edges.csv'
+  graph = read_SNAP_graph(friendster_file, 'friendster')
+  '''
   #draw_graph(graph)
   
-  steps = 4
+  steps = 3
   print('diameter',nx.diameter(graph))
-  num_labelled_nodes = 120
-  _labelled_nodes = random.sample(graph.nodes(), num_labelled_nodes)
-  lab_nodes2 = [i for i in _labelled_nodes if i >=1*5]
-  _labelled_nodes = lab_nodes2
+  num_labelled_nodes = 4
+  #_labelled_nodes = random.sample(graph.nodes(), num_labelled_nodes)
+  #lab_nodes2 = [i for i in _labelled_nodes if i >=1*5]
+  #_labelled_nodes = lab_nodes2
 
-  #_labelled_nodes = [0]
+  _labelled_nodes = [0]
+ 
   rank_nodes(graph, steps, _labelled_nodes)
+  '''
   
   '''
   for i in graph.nodes():
