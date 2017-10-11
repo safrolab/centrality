@@ -3,8 +3,8 @@
 %ssget('HB/lap_25')%
 %load('HB/lap_25')
 %load('HB/saylr1')
-load('grid10x10.mat')
-%load('twitter.mat')
+%load('grid10x10.mat')
+load('twitter.mat')
 %load('star_path_star2.mat')
 %load('HB/1138_bus')
 %A = Problem.A;
@@ -16,7 +16,7 @@ A(A > 0) = 1;
 
 %% parameters
 steps= 3;
-num_labelled_nodes = 20;
+num_labelled_nodes = 3*8000;
 labelled_nodes = randperm(n,num_labelled_nodes);
 %labelled_nodes = [1 34];
 I = speye(n);
@@ -25,7 +25,7 @@ J = sparse(n,n);
 D = A*ones(n,1);
 for i=1:num_labelled_nodes
    indx = labelled_nodes(i);
-   J(indx, indx) = 1;
+   J (indx, indx) = 1;
 end
 %%
 
@@ -69,6 +69,7 @@ W2 = Y'*((speye(n*steps) - a2*B)\(X*ones(n,1)));
 %%
 W1 = W1/norm(W1);
 W2 = W2/norm(W2);
+%%
 scatter(W1, W2,20, 'fill')
 mdl = fitlm(W1,W2);
 ylim=get(gca,'ylim');
@@ -79,9 +80,12 @@ text(5*xlim(2)/10,(ylim(1) + ylim(2))/18,mystr,'Interpreter','latex', 'fontsize'
 h = lsline;
 set(h,'LineWidth', 1)
 ylabel('Bounded-Katz')
-xlabel('Katz2')
+xlabel('Katz')
 [katz, katz_order] = sort(W1,'descend');
 [Bound_katz, Bound_katz_order] = sort(W2,'descend');
+hold on;
+scatter(W1(labelled_nodes), W2(labelled_nodes), 'fill');
+hold off;
 %%
 [[1:n]', katz_order, Bound_katz_order]
 %[[1:n]', W1,W2]
