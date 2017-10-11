@@ -1,37 +1,36 @@
 %ssget('Newman/karate')
-%load('Newman/karate')
+%load('Newman/karate.mat')
 %ssget('HB/lap_25')%
 %load('HB/lap_25')
 %load('HB/saylr1')
 %load('grid10x10.mat')
-load('star_path_star2.mat')
+load('twitter.mat')
+%load('star_path_star2.mat')
 %load('HB/1138_bus')
 %A = Problem.A;
-G = graph(A);
-A = G.adjacency;
+%G = graph(A);
+%A = G.adjacency;
 %plot(G)
-
-
-
+A(A > 0) = 1;
 [~, n] = size(A);
 
+%% parameters
 steps= 3;
-num_labelled_nodes = 1;
-labelled_nodes = zeros(num_labelled_nodes,1);
-labelled_nodes(1) = 7;
+num_labelled_nodes = 3*8000;
+labelled_nodes = randperm(n,num_labelled_nodes);
+%labelled_nodes = [1 34];
 I = speye(n);
-%A = A - I; %remove loops
-J = sparse(zeros(n));
+J = sparse(n,n);
 
 D = A*ones(n,1);
 for i=1:num_labelled_nodes
    indx = labelled_nodes(i);
-   J(indx, indx) = 1;
+   J (indx, indx) = 1;
 end
+%%
 
-
-B = zeros(n*steps, n*steps);
-B = sparse(B);
+B = sparse(n*steps, n*steps);
+%B = sparse(B);
 for i=0:steps-1
     B(i*n+1:(i+1)*n,1:n) = (I-J)*A*J;
 end
@@ -42,37 +41,52 @@ end
 B(1:n,n+1:2*n) = A*(I-J);
 
 Ink = speye(n*steps,n*steps);
-X = sparse(zeros(n*steps, n));
-Y = sparse(zeros(n*steps, n));
+X = sparse(n*steps, n);
+Y = sparse(n*steps, n);
 for i=0:steps-1
     X(i*n+1:(i+1)*n, :) = I;
 end
 Y(1:n,:) = I;
-
-a1 = 1/abs(eigs(A,1)) - 0.01;
-a2 = 1/abs(eigs(B,1)) - 0.01;
-
+%%
+%a1 = 1/abs(eigs(A,1)) - 0.01;
+%a2 = 1/abs(eigs(B,1)) - 0.01;
+a1 = 0.95*1/abs(eigs(A,1));
+a2 = 0.95*1/abs(eigs(B,1));
 init_cen = ones(n,1);
 for i=1:num_labelled_nodes
    indx = labelled_nodes(i);
-   init_cen(indx) = 2;
+   init_cen(indx) = 1;
 end
 W1  = (I- a1*A)\init_cen;
+%%
 W2 = Y'*((speye(n*steps) - a2*B)\(X*ones(n,1)));
-%W1 = W1/norm(W1);
-%W2 = W2/norm(W2);
-%U = [W1';W2'];
-%[newW1, sort_order] = sort(W1);
-%newW2 = W2(sort_order,:);
 
 %plot([1:n]', newW1,'LineWidth',3)
 %hold on
 %scatter([1:n]', newW2, 'filled')
 %hold off
-scatter(W1, W2)
+
+%%
 W1 = W1/norm(W1);
 W2 = W2/norm(W2);
+%%
+scatter(W1, W2,20, 'fill')
+mdl = fitlm(W1,W2);
+ylim=get(gca,'ylim');
+xlim=get(gca,'xlim');
+mystr = strcat('$\omega=', num2str(steps), ',m=', num2str(num_labelled_nodes));
+mystr = strcat(mystr,',R^2=', num2str(round(mdl.Rsquared.Ordinary,2)), '$');
+text(5*xlim(2)/10,(ylim(1) + ylim(2))/18,mystr,'Interpreter','latex', 'fontsize',14)
+h = lsline;
+set(h,'LineWidth', 1)
+ylabel('Bounded-Katz')
+xlabel('Katz')
 [katz, katz_order] = sort(W1,'descend');
 [Bound_katz, Bound_katz_order] = sort(W2,'descend');
+hold on;
+scatter(W1(labelled_nodes), W2(labelled_nodes), 'fill');
+hold off;
+%%
 [[1:n]', katz_order, Bound_katz_order]
-[[1:n]', W1,W2]
+%[[1:n]', W1,W2]
+%scatter(katz_order, Bound_katz_order)
