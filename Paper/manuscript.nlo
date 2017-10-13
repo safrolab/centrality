@@ -1,0 +1,3 @@
+\nomenclatureentry{a$\delta_{s,t}^i$@[{$\delta_{s,t}^i$}]\begingroup Number of shortest $s$-$t$ feasible paths of length $i$\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{a$\delta_{s,t}^i(v)$@[{$\delta_{s,t}^i(v)$}]\begingroup Number of shortest $s$-$t$ feasible paths of length $i$, that pass through node $v$\nomeqref {0}|nompageref}{2}
+\nomenclatureentry{a$\alpha_i$@[{$\alpha_i$}]\begingroup Parameter giving more importance to paths of shorter length\nomeqref {0}|nompageref}{2}

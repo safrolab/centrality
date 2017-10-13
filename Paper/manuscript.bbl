@@ -1,0 +1,114 @@
+\begin{thebibliography}{10}
+
+\bibitem{agliari2006efficiency}
+E~Agliari, R~Burioni, D~Cassi, and FM~Neri.
+\newblock Efficiency of information spreading in a population of diffusing
+  agents.
+\newblock {\em Physical Review E}, 73(4):046138, 2006.
+
+\bibitem{akyildiz2002wireless}
+Ian~F Akyildiz, Weilian Su, Yogesh Sankarasubramaniam, and Erdal Cayirci.
+\newblock Wireless sensor networks: a survey.
+\newblock {\em Computer networks}, 38(4):393--422, 2002.
+
+\bibitem{brashears2016error}
+Matthew~E Brashears and Eric Gladstone.
+\newblock Error correction mechanisms in social networks can reduce accuracy
+  and encourage innovation.
+\newblock {\em Social Networks}, 44:22--35, 2016.
+
+\bibitem{cuzzocrea2012edge}
+Alfredo Cuzzocrea, Alexis Papadimitriou, Dimitrios Katsaros, and Yannis
+  Manolopoulos.
+\newblock Edge betweenness centrality: A novel algorithm for qos-based topology
+  control over wireless sensor networks.
+\newblock {\em Journal of Network and Computer Applications}, 35(4):1210--1217,
+  2012.
+
+\bibitem{daley1964epidemics}
+Daryl~J Daley and David~G Kendall.
+\newblock Epidemics and rumours.
+\newblock {\em Nature}, 204(4963):1118--1118, 1964.
+
+\bibitem{dolev2009incremental}
+Shlomi Dolev, Yuval Elovici, Rami Puzis, and Polina Zilberman.
+\newblock Incremental deployment of network monitors based on group betweenness
+  centrality.
+\newblock {\em Information Processing Letters}, 109(20):1172--1176, 2009.
+
+\bibitem{everett1999centrality}
+Martin~G Everett and Stephen~P Borgatti.
+\newblock The centrality of groups and classes.
+\newblock {\em The Journal of mathematical sociology}, 23(3):181--201, 1999.
+
+\bibitem{leskovec2007cost}
+Jure Leskovec, Andreas Krause, Carlos Guestrin, Christos Faloutsos, Jeanne
+  VanBriesen, and Natalie Glance.
+\newblock Cost-effective outbreak detection in networks.
+\newblock In {\em Proceedings of the 13th ACM SIGKDD international conference
+  on Knowledge discovery and data mining}, pages 420--429. ACM, 2007.
+
+\bibitem{nakamura2007information}
+Eduardo~F Nakamura, Antonio~AF Loureiro, and Alejandro~C Frery.
+\newblock Information fusion for wireless sensor networks: Methods, models, and
+  classifications.
+\newblock {\em ACM Computing Surveys (CSUR)}, 39(3):9, 2007.
+
+\bibitem{newman2005measure}
+Mark~EJ Newman.
+\newblock A measure of betweenness centrality based on random walks.
+\newblock {\em Social networks}, 27(1):39--54, 2005.
+
+\bibitem{pei2015detecting}
+Sen Pei, Shaoting Tang, and Zhiming Zheng.
+\newblock Detecting the influence of spreading in social networks with
+  excitable sensor networks.
+\newblock {\em PloS one}, 10(5):e0124848, 2015.
+
+\bibitem{puzis2007finding}
+Rami Puzis, Yuval Elovici, and Shlomi Dolev.
+\newblock Finding the most prominent group in complex networks.
+\newblock {\em AI communications}, 20(4):287--296, 2007.
+
+\bibitem{sarkar2011random}
+Purnamrita Sarkar and Andrew~W Moore.
+\newblock Random walks in social networks and their applications: a survey.
+\newblock {\em Social Network Data Analytics}, pages 43--77, 2011.
+
+\bibitem{tian2005randomwalk}
+Hui Tian, Hong Shen, and Teruo Matsuzawa.
+\newblock Randomwalk routing for wireless sensor networks.
+\newblock In {\em Parallel and Distributed Computing, Applications and
+  Technologies, 2005. PDCAT 2005. Sixth International Conference on}, pages
+  196--200. IEEE, 2005.
+
+\bibitem{tutzauer2007entropy}
+Frank Tutzauer.
+\newblock Entropy as a measure of centrality in networks characterized by
+  path-transfer flow.
+\newblock {\em Social networks}, 29(2):249--265, 2007.
+
+\bibitem{viswanath-2009-activity}
+Bimal Viswanath, Alan Mislove, Meeyoung Cha, and Krishna~P. Gummadi.
+\newblock On the evolution of user interaction in facebook.
+\newblock In {\em Proceedings of the 2nd ACM SIGCOMM Workshop on Social
+  Networks (WOSN'09)}, August 2009.
+
+\bibitem{wan2002psfq}
+Chieh-Yih Wan, Andrew~T Campbell, and Lakshman Krishnamurthy.
+\newblock Psfq: a reliable transport protocol for wireless sensor networks.
+\newblock In {\em Proceedings of the 1st ACM international workshop on Wireless
+  sensor networks and applications}, pages 1--11. ACM, 2002.
+
+\bibitem{wu2004information}
+Fang Wu, Bernardo~A Huberman, Lada~A Adamic, and Joshua~R Tyler.
+\newblock Information flow in social groups.
+\newblock {\em Physica A: Statistical Mechanics and its Applications},
+  337(1):327--335, 2004.
+
+\bibitem{zhang2013rumor}
+Yichao Zhang, Shi Zhou, Zhongzhi Zhang, Jihong Guan, and Shuigeng Zhou.
+\newblock Rumor evolution in social networks.
+\newblock {\em Physical Review E}, 87(3):032133, 2013.
+
+\end{thebibliography}
