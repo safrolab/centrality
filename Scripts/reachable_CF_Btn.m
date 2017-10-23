@@ -54,7 +54,7 @@ a1 = 0.95*1/abs(eigs(A,1));
 %a2 = 0.95*1/abs(eigs(B,1));
 %%
 W2 = Y'*((speye(n*steps) - a1*B)\X);
-
+spy(W2)
 neighborhood = W2;
 neighborhood(neighborhood > 0) = 1;
 spy(neighborhood)
