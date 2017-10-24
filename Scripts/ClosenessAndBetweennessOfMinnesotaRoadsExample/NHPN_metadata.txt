@@ -1,0 +1,2023 @@
+Identification_Information:
+
+  Citation:
+
+    Citation_Information:
+
+      Originator: Federal Highway Administration (FHWA)
+
+      Publication_Date: 20050815
+
+      Title: National Highway Planning Network
+
+      Edition: 2005.08
+
+      Geospatial_Data_Presentation_Form: vector digital data
+
+      Other_Citation_Details: The NHPN Version 2005.08 database was created on behalf of FHWA by the members of the Transport Modeling and GIS-T Application Group, Transportation & Space division, Battelle, Columbus, OH.
+
+      Online_Linkage: http://www.fhwa.dot.gov/
+
+  Description:
+
+    Abstract: The National Highway Planning Network is a comprehensive network database of the nation's major highway system.  It consists of over 400,000 miles of the nation's highways comprised of Rural Arterials, Urban Principal Arterials and all National Highway System routes. The data set covers the 48 contiguous States plus the District of Columbia, Alaska, Hawaii, and Puerto Rico. The nominal scale of the data set is 1:100,000 with a maximal positional error of ±80 meters.
+
+    Purpose: The primary purpose of this geospatial data set is to serve the FHWA needs in highway planning, policy analysis, visualization of the Highway Performance Monitoring System (HPMS) database and network modeling.  The NHPN is the digital source used for coding and publishing the FHWA approved National Highway System maps.
+
+  Time_Period_of_Content:
+
+    Time_Period_Information:
+
+      Single_Date/Time:
+
+        Calendar_Date: 20050815
+
+    Currentness_Reference: publication date
+
+  Status:
+
+    Progress: In work
+
+    Maintenance_and_Update_Frequency: Annually
+
+  Spatial_Domain:
+
+    Bounding_Coordinates:
+
+      West_Bounding_Coordinate: -88.468248
+
+      East_Bounding_Coordinate: -84.995385
+
+      North_Bounding_Coordinate: 35.005803
+
+      South_Bounding_Coordinate: 30.251503
+
+  Keywords:
+
+    Theme:
+
+      Theme_Keyword_Thesaurus: None
+
+      Theme_Keyword: Network
+
+  Access_Constraints: None
+
+  Use_Constraints: The NHPN Version 2005.08 database, or any portion thereof, can be freely distributed as long as this metadata entry is included with each distribution. The original metadata entry cannot be modified or deleted from any data transfer.
+
+  Point_of_Contact:
+
+    Contact_Information:
+
+      Contact_Organization_Primary:
+
+        Contact_Organization: Office of Interstate & Border Planning (HEPI-10)
+
+        Contact_Person: Mr. Mark J. Sarmiento
+
+      Contact_Address:
+
+        Address_Type: mailing address
+
+        Address: 400 7th Street, SW
+
+        City: Washington
+
+        State_or_Province: DC
+
+        Postal_Code: 20590
+
+        Country: USA
+
+      Contact_Voice_Telephone: (202) 366-4828
+
+  Native_Data_Set_Environment: Microsoft Windows XP Version 5.1 (Build 2600) Service Pack 2; ESRI ArcCatalog 9.0.0.535
+
+Data_Quality_Information:
+
+  Logical_Consistency_Report: Topological relationships of node and link and uniqueness of entity IDs are verified by the computer algorithm developed under ArcGIS 9.0 environment.
+
+  Completeness_Report: The National Highway System Designations for Intermodal connectors and terminals and The Strategic Highway Network (STRAHNET) connectors have been verified by FHWA  as of July 2005.  Any addition and modification to the National Highway System routes as reported to the FHWA by July 2005 is also included. Errors found on NHS have been checked and rectified.
+
+  Positional_Accuracy:
+
+    Horizontal_Positional_Accuracy:
+
+      Horizontal_Positional_Accuracy_Report: The original elements of the NHPN have been conflated to the 1:100,000 DLG-3 data set, which maintains a nominal accuracy of at least ±80 meters. Where new roads have been added which are not in the DLG-3 database, link alignments have been digitized or converted from digital sources acquired from state DOTs with a map scale of at least 1:100,000. Where State data source was not available, CENSUS TIGER/Line 2000 was used.
+
+  Lineage:
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Originator: Bruce Peterson, Oak Ridge National Laboratory
+
+          Title: National Highway Planning Network V1.1
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 19920701
+
+      Source_Citation_Abbreviation: NHPN V1
+
+      Source_Contribution: Non-verified attributes for rural highways.
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Title: USGS Digital Line Graph (DLG-3) Series
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 1978
+
+      Source_Citation_Abbreviation: DLG-3
+
+      Source_Contribution: Road alignments for rural and urban highways.
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Title: State-supplied digital and map data
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 19921231
+
+      Source_Citation_Abbreviation: State Data
+
+      Source_Contribution: Alignments and attributes for urban highways. Sign route and function class attributes for principal arterial system.
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Title: State-supplied digital and map data
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 19931101
+
+      Source_Citation_Abbreviation: State Data
+
+      Source_Contribution: Alignments, sign route NHS classification for National Highway System.
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Title: State-supplied digital and map data
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 19931101
+
+      Source_Citation_Abbreviation: State Data
+
+      Source_Contribution: Linear Referencing System Attributes
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Title: CENSUS TIGER/Line 1994
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 1994
+
+      Source_Citation_Abbreviation: TIGER
+
+      Source_Contribution: Alignment, shape and location of ramp features
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Title: CENSUS TIGER/Line 2000
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 2000
+
+      Source_Citation_Abbreviation: TIGER
+
+      Source_Contribution: Alignment, shape and location of intermodal connectors and terminals
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Title: State-supplied digital and map data
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 2002
+
+      Source_Citation_Abbreviation: State Data
+
+      Source_Contribution: Alignment, shape and location of intermodal connectors and terminals
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Originator: State
+
+          Title: Geographic Information System (GIS) Data and paper maps
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 2003
+
+      Source_Citation_Abbreviation: State Data 2004
+
+      Source_Contribution:
+
+        Fixed LRS route direction to match HPMS mileage direction.
+
+        Calibrate LRS milepost attribute value to match state supplied HPMS.
+
+        Create/modify of new LRS Routes to match state supplied HPMS.
+
+        Assign of road name attribute for arcs where SIGN values are not available.
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Title: National Highway Planning Network V2002.10
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 20021001
+
+        Source_Currentness_Reference: publication date
+
+      Source_Citation_Abbreviation: NHPN 2002.10
+
+      Source_Contribution: Upgrade NHPN format to Geodatabase.
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Originator: State
+
+          Title: Highway Performance Monitoring System
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 2003
+
+      Source_Citation_Abbreviation: HPMS 2002
+
+      Source_Contribution:
+
+        Calibration of  LRS milepost attribute value.
+
+        Creation of new LRS Routes.
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Originator: Transport Modeling and GIS-T Application Group, Transportation & Space division, Battelle
+
+          Title: Urban Area
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 2003
+
+      Source_Citation_Abbreviation: Urban Area 2003
+
+      Source_Contribution:
+
+        Assign CENSUS Small Urban Area code.
+
+        Assign HPMS Urbanized Area code.
+
+        Assign Rural/Urban Code.
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Title: National Highway Planning Network V2002.10 Geodatabase format
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 2003
+
+      Source_Citation_Abbreviation: NHPN Geo 2003
+
+      Source_Contribution: Provided a platform for topological Q/C analysis.
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Originator: FHWA
+
+          Title: STRAHNET Connectors
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 2005
+
+      Source_Citation_Abbreviation: STRAHNET connectors
+
+      Source_Contribution: Delineated STRAHNET Priority 1 and Priority 2 connectors.
+
+    Source_Information:
+
+      Source_Citation:
+
+        Citation_Information:
+
+          Title: FHWA Intermodal Facility and Connectors
+
+      Source_Time_Period_of_Content:
+
+        Time_Period_Information:
+
+          Single_Date/Time:
+
+            Calendar_Date: 2005
+
+      Source_Citation_Abbreviation: FHWA Intermodal Facility and Connectors
+
+      Source_Contribution: Updated FAC_ID, CONN_ID, CONN_DES and CONN_MILES.
+
+    Source_Information:
+
+      Source_Citation_Abbreviation: NHPN 2004.10
+
+      Source_Contribution: All the updates were made on this version of the NHPN
+
+    Process_Step:
+
+      Process_Description: Conflation of NHPN V1 to DLG-3 road alignments using R-MATCH software developed by the Geographic Information Systems Group, University of Tennessee.
+
+      Source_Used_Citation_Abbreviation: NHPN V1
+
+      Source_Used_Citation_Abbreviation: DLG-3
+
+      Process_Date: 19930701
+
+    Process_Step:
+
+      Process_Description: Digitizing and converting of state-supplied digital and map data. Line work geodetically controlled to match DLG-3 line work.
+
+      Source_Used_Citation_Abbreviation: State Data
+
+      Source_Used_Citation_Abbreviation: DLG-3
+
+      Process_Date: 19931231
+
+    Process_Step:
+
+      Process_Description: Integration of conflated version of NHPN V1 and assimilated state data into a comprehensive topologically integrated network database. States edge matched and NHS attributes verified.
+
+      Process_Date: 19940915
+
+    Process_Step:
+
+      Process_Description: Integration of supplemental state data into the NHPN V2.  NHS attributes verified.
+
+      Process_Date: 19970115
+
+    Process_Step:
+
+      Process_Description: Integration of intermodal connector links into the NHPN V2.  States edge matched and NHS attributes verified.
+
+      Process_Date: 19980101
+
+    Process_Step:
+
+      Process_Description: Attachment of a Linear Referencing System to the NHPN V2. State Data used for LRS attribute information.
+
+      Process_Date: 19991001
+
+    Process_Step:
+
+      Process_Description: Integration of Ramp Group Cordon Boundary nodes into the NHPN for future addition of ramp group features.  States edge matched, NHS attributes verified, and national LRSKEY added to facilitate a national route system.
+
+      Process_Date: 19991001
+
+    Process_Step:
+
+      Process_Description: Further integration of Ramp Group Cordon Boundary nodes into the NHPN for future addition of ramp group features.  States edge matched, NHS attributes verified.
+
+      Process_Date: 20000225
+
+    Process_Step:
+
+      Process_Description: Update of Linear Referencing System to the NHPN V4.0.  State data used for LRS attribute information.
+
+      Process_Date: 20010601
+
+    Process_Step:
+
+      Process_Description: Update and rebuild Linear Referencing System to the NHPN V 2002.10.  State data used for LRS attribute information.
+
+      Process_Date: 20020730
+
+    Process_Step:
+
+      Process_Description: Update LRS directionality and calibrate LRS milepost attribute value to match state supplied HPMS to the NHPN V 2002.10 route system.  State and FHWA HPMS-2001 data used for LRS attribute information.
+
+      Process_Date: 20020730
+
+    Process_Step:
+
+      Process_Description: Update NHS and intermodal connector links. States edge matched and NHS attributes verified.
+
+      Process_Date: 20020730
+
+    Process_Step:
+
+      Process_Description: Update and integrate intermodal terminals. States geo-location matched and attributes verified.
+
+      Process_Date: 20020730
+
+    Process_Step:
+
+      Process_Description: Conflation of NHPN V.4 RAT data to NHPN V 2002.10 arc and calibrate arc milepost LRS anchor information using R-TAG Interface developed by the Transport Modeling and GIS-T Applications Group, Transportation & Space division, Battelle, Columbus, Ohio.
+
+      Process_Date: 20020730
+
+    Process_Step:
+
+      Process_Description: NHPN V.4 Route System's directionality, Route Attribute Table and milepost anchor values verified with state-submitted HPMS data elements. Anomalies are corrected or modified onto the NHPN V 2002.10 route system.
+
+      Process_Date: 20020730
+
+    Process_Step:
+
+      Process_Description: Coverage to geodatabase conversion.
+
+      Source_Used_Citation_Abbreviation: NHPN 2002.10
+
+      Process_Date: 20030601
+
+      Source_Produced_Citation_Abbreviation: NHPN Geo 2003
+
+    Process_Step:
+
+      Process_Description: Conversion of Spatial co-ordinate system from NAD 27 to NAD 83.
+
+      Source_Used_Citation_Abbreviation: NHPN Geo 2003
+
+      Process_Date: 20030601
+
+    Process_Step:
+
+      Process_Description: Assigned road name attributes for arcs where SIGN values are not available.
+
+      Source_Used_Citation_Abbreviation: State Data 2003
+
+      Source_Used_Citation_Abbreviation: CENSUS/TIGER/Line 2000
+
+      Process_Date: 20030701
+
+    Process_Step:
+
+      Process_Description: Corrected topological errors using ArcGIS 8.3 geodatabase topology rules.
+
+      Source_Used_Citation_Abbreviation: NHPN Geo 2003
+
+      Process_Date: 20030801
+
+    Process_Step:
+
+      Process_Description: Transferred route information from the NHPN route to the NHPN arc features
+
+      Source_Used_Citation_Abbreviation: NHPN Geo 2003
+
+      Process_Date: 20031001
+
+    Process_Step:
+
+      Process_Description: Revised and modified arc feature's topology direction with state submitted route feature and/or HPMS route direction.
+
+      Source_Used_Citation_Abbreviation: State Data 2003
+
+      Source_Used_Citation_Abbreviation: State Data 2002
+
+      Source_Used_Citation_Abbreviation: HPMS 2002
+
+      Process_Date: 20031101
+
+    Process_Step:
+
+      Process_Description: Verified arcs direction with state submitted GIS data and HPMS.
+
+      Source_Used_Citation_Abbreviation: State Data 2003
+
+      Source_Used_Citation_Abbreviation: State Data 2002
+
+      Source_Used_Citation_Abbreviation: HPMS 2002
+
+      Process_Date: 20031201
+
+    Process_Step:
+
+      Process_Description: Created new NHPN route system from the NHPN arc's embedded route information with the aid of computer algorithm developed under ArcGIS environment.
+
+      Source_Used_Citation_Abbreviation: NHPN Geo 2003
+
+      Process_Date: 20040101
+
+    Process_Step:
+
+      Process_Description: Updated CENSUS small urban area code and HPMS urbanized area code to the arc and node features.
+
+      Source_Used_Citation_Abbreviation: Urban Area 2003
+
+      Process_Date: 20040201
+
+    Process_Step:
+
+      Process_Description: Modified NHS codes as per direction of the FHWA. NHS codes 2,5, and 6 as reported in the previous versions of NHPN were changed to 7,3, and 4 respectively.
+
+      Source_Used_Citation_Abbreviation: NHPN Geo 2003
+
+      Process_Date: 20040301
+
+    Process_Step:
+
+      Process_Description: Changed STRAHNET codes 1, 2, and 3 to 6, 1 and 2 respectively. Replaced definition of codes 3, 4 and 5 as Rural Non-Designated Interstate, Urban Designated Interstate and Urban Non-Designated Interstate respectively.
+
+      Source_Used_Citation_Abbreviation: NHPN 2004.10
+
+      Process_Date: 20050615
+
+    Process_Step:
+
+      Process_Description: Added STRAHNET connectors and corresponding to FAC_ID and CONN_DES.
+
+      Source_Used_Citation_Abbreviation: STRAHNET Connectors
+
+      Process_Date: 20050701
+
+    Process_Step:
+
+      Process_Description: Verified Intermodal terminals.
+
+      Process_Date: 20050715
+
+    Process_Step:
+
+      Process_Description: Modified NHS based on ammendments.
+
+      Process_Date: 20050615
+
+    Process_Step:
+
+      Process_Description: Added status code as per direction of the FHWA. Status code 2 was added to identify ferry routes.
+
+      Process_Date: 20050701
+
+    Process_Step:
+
+      Process_Description: Identified and assigned status code 2 to the ferry routes.
+
+      Source_Used_Citation_Abbreviation: NHPN 2004.10
+
+      Process_Date: 20050701
+
+Spatial_Data_Organization_Information:
+
+  Direct_Spatial_Reference_Method: Vector
+
+  Point_and_Vector_Object_Information:
+
+    SDTS_Terms_Description:
+
+      SDTS_Point_and_Vector_Object_Type: Linear Referencing, nonplanar graph
+
+      Point_and_Vector_Object_Count: 37939
+
+    SDTS_Terms_Description:
+
+      SDTS_Point_and_Vector_Object_Type: Network chain, nonplanar graph
+
+      Point_and_Vector_Object_Count: 176231
+
+    SDTS_Terms_Description:
+
+      SDTS_Point_and_Vector_Object_Type: Node, network
+
+      Point_and_Vector_Object_Count: 140234
+
+Spatial_Reference_Information:
+
+  Horizontal_Coordinate_System_Definition:
+
+    Geographic:
+
+      Latitude_Resolution: 0.000001
+
+      Longitude_Resolution: 0.000001
+
+      Geographic_Coordinate_Units: Decimal degrees
+
+    Geodetic_Model:
+
+      Horizontal_Datum_Name: North American Datum of 1983
+
+      Ellipsoid_Name: Geodetic Reference System 80
+
+      Semi-major_Axis: 6378137.000000
+
+      Denominator_of_Flattening_Ratio: 298.257222
+
+  Vertical_Coordinate_System_Definition:
+
+    Altitude_System_Definition:
+
+      Altitude_Resolution: 0.001000
+
+      Altitude_Encoding_Method: Explicit elevation coordinate included with horizontal coordinates
+
+Entity_and_Attribute_Information:
+
+  Detailed_Description:
+
+    Entity_Type:
+
+      Entity_Type_Label: Node
+
+    Attribute:
+
+      Attribute_Label: RECTYPE
+
+      Attribute_Definition: Identifies Node File records
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'N'
+
+    Attribute:
+
+      Attribute_Label: VERSION
+
+      Attribute_Definition: The Version ID is used to maintain consistency across data files containing alternate releases of the NHPN.  The Version Code consists of a leading Version Number (the year of release) and a trailing number (the month of release), thus, 2004.03 describes Major Release for the year 2004 and month 03.
+
+    Attribute:
+
+      Attribute_Label: RECID
+
+      Attribute_Definition: The RECID is a unique numeric ID associated with each node.
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Positive Integers.
+
+    Attribute:
+
+      Attribute_Label: ORIGID
+
+      Attribute_Definition: The ORIGID is a unique numeric ID associated with each node derived from NHPN Version 4
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Positive Integers.
+
+    Attribute:
+
+      Attribute_Label: STFIPS
+
+      Attribute_Definition: State FIPS code for the node.  Nodes that are a State Boundary node will have a value of 99 for the STFIPS field.
+
+      Attribute_Domain_Values:
+
+        Codeset_Domain:
+
+          Codeset_Source: Federal Information Processing Standards
+
+    Attribute:
+
+      Attribute_Label: CTFIPS
+
+      Attribute_Definition: 3 digit FIPS Code for the County the node is contained in. (County FIPS are identified uniquely within a given State using the three digit code and uniquely within the US by prefixing the two digit State FIPS code to create a 5 digit code).  Nodes that are a County Boundary node will have a value of 999 for the CTFIPS field.
+
+      Attribute_Domain_Values:
+
+        Codeset_Domain:
+
+          Codeset_Source: Federal Information Processing Standards
+
+    Attribute:
+
+      Attribute_Label: LGURB
+
+      Attribute_Definition: Three digit Highway Performance Monitoring System (HPMS) Urbanized Area code for the Adjusted Urbanized Area in which the node lies.  A value of 0 indicates the node is outside any HPMS Adjusted Urbanized Areas.  Nodes that lie on the boundary of an Urbanized Area will have a LGURB value of zero.
+
+      Attribute_Definition_Source: Highway Performance Monitoling System
+
+      Attribute_Domain_Values:
+
+        Codeset_Domain:
+
+    Attribute:
+
+      Attribute_Label: SMURB
+
+      Attribute_Definition: 5 digit CENSUS Adjusted Small Urban Area code for cities under 50,000 population in year 2000.  A value of 0 indicates the node is outside any Adjusted Small Urban Area.  Nodes that lie on the boundary of a small urban area will have a SMURB value of zero.
+
+      Attribute_Definition_Source: CENSUS
+
+      Attribute_Domain_Values:
+
+        Codeset_Domain:
+
+    Attribute:
+
+      Attribute_Label: BNDRY
+
+      Attribute_Definition: The BNDRY Flag is used to identify nodes which lie on the boundary of logical polygons maintained within the NHPN. The values for BNDRY are additive and can be used to describe a node which lies on the border of more than one boundary.  For example a node at a State border will also be a county border node and will therefore, have a value of 1 + 10 = 11.  Similarly, a node which lies on the boundary of an Urbanized Area and a small urban area will have a BNDRY value of 4 + 2 = 6.  If it were also a county boundary it would have a value of 1 + 2 + 4 = 7.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 0
+
+          Enumerated_Domain_Value_Definition: Not a boundary node
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 1
+
+          Enumerated_Domain_Value_Definition: County Boundary
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 2
+
+          Enumerated_Domain_Value_Definition: Adjusted Urbanized Area
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 4
+
+          Enumerated_Domain_Value_Definition: Adjusted Small Urban Area
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 10
+
+          Enumerated_Domain_Value_Definition: State Border
+
+    Attribute:
+
+      Attribute_Label: NAME
+
+      Attribute_Definition: The NAME field can be any character string used to identify nodes such as the name of nearby towns, geographical features, interstate exits, intersection descriptions, etc.
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: cannot contain punctuation characters other than hyphens, underlines, and blank spaces.
+
+  Detailed_Description:
+
+    Entity_Type:
+
+      Entity_Type_Label: Arc
+
+    Attribute:
+
+      Attribute_Label: RECTYPE
+
+      Attribute_Definition: Identifies Arc File records.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'L'
+
+    Attribute:
+
+      Attribute_Label: VERSION
+
+      Attribute_Definition: The Version ID is used to maintain consistency across data files containing alternate releases of the NHPN.  The Version Code consists of a leading Version Number  (the year of release) and a trailing number (the month of release), thus, 2004.03 describes Major Release for the year 2003 and month 03.
+
+    Attribute:
+
+      Attribute_Label: RECID
+
+      Attribute_Definition: The RECID is a unique numeric ID associated with each
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Positive Integers.
+
+    Attribute:
+
+      Attribute_Label: ORIGID
+
+      Attribute_Definition: The ORIGID is a unique numeric ID associated with each
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Positive Integers.
+
+    Attribute:
+
+      Attribute_Label: STFIPS
+
+      Attribute_Definition: State FIPS code for the Arc.
+
+      Attribute_Domain_Values:
+
+        Codeset_Domain:
+
+          Codeset_Source: Federal Information Processing Standards
+
+    Attribute:
+
+      Attribute_Label: CTFIPS
+
+      Attribute_Definition: 3 digit FIPS Code for the County the Arc resides.
+
+      Attribute_Domain_Values:
+
+        Codeset_Domain:
+
+          Codeset_Source: Federal Information Processing Standards
+
+    Attribute:
+
+      Attribute_Label: SOURCE
+
+      Attribute_Definition: Source of ARC
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'T'
+
+          Enumerated_Domain_Value_Definition: Tiger File
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'D'
+
+          Enumerated_Domain_Value_Definition: Digitized
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'S'
+
+          Enumerated_Domain_Value_Definition: State
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'U'
+
+          Enumerated_Domain_Value_Definition: Unknown
+
+    Attribute:
+
+      Attribute_Label: LGURB
+
+      Attribute_Definition: Three digit Highway Performance Monitoring System (HPMS) Urbanized Area code for the Adjusted Urbanized Area in which the arc lies.  A value of 0 indicates the arc is outside any HPMS Adjusted Urbanized Areas.
+
+      Attribute_Definition_Source: Highway Performance Monitoling System
+
+      Attribute_Domain_Values:
+
+        Codeset_Domain:
+
+    Attribute:
+
+      Attribute_Label: SMURB
+
+      Attribute_Definition: 5 digit CENSUS Adjusted Small Urban Area code for cities under 50,000 population in year 2000.  A value of 0 indicates the arc is outside any Adjusted Small Urban Area.
+
+      Attribute_Definition_Source: CENSUS
+
+      Attribute_Domain_Values:
+
+        Codeset_Domain:
+
+    Attribute:
+
+      Attribute_Label: SIGN1
+
+      Attribute_Definition: The SIGN1 field contains the designated primary Sign Route for the arc.
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: The character string is composed of three sub fields SIGNT1, SIGNN1, and SIGNQ1.
+
+    Attribute:
+
+      Attribute_Label: SIGNT1
+
+      Attribute_Definition: Describes the type of the sign route.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'I'
+
+          Enumerated_Domain_Value_Definition: Interstate
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'U'
+
+          Enumerated_Domain_Value_Definition: US Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'S'
+
+          Enumerated_Domain_Value_Definition: State Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'O'
+
+          Enumerated_Domain_Value_Definition: Off-Interstate Business Marker
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'C'
+
+          Enumerated_Domain_Value_Definition: County Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'T'
+
+          Enumerated_Domain_Value_Definition: Township
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'M'
+
+          Enumerated_Domain_Value_Definition: Municipal
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'P'
+
+          Enumerated_Domain_Value_Definition: Parkway or Forest Route Marker
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'N'
+
+          Enumerated_Domain_Value_Definition: None of the above
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: (blank)
+
+          Enumerated_Domain_Value_Definition: Not signed or not applicable
+
+    Attribute:
+
+      Attribute_Label: SIGNN1
+
+      Attribute_Definition: Contains the actual sign route numbers . Using HPMS standards, an optional directional indicator (N, S, E, W) can also be used as part of this field. For national NHPN geodatabase SIGNN1 values PRI1, PRI2 and PRI3 were assigned for route IPRI-1,IPRI-2 and IPRI-3 respectively.
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Alpha Numeric
+
+    Attribute:
+
+      Attribute_Label: SIGNQ1
+
+      Attribute_Definition: Sign Route Qualifier Record which is used to qualify the sign route description follows the Sign Route Number.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'A'
+
+          Enumerated_Domain_Value_Definition: Alternate Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'B'
+
+          Enumerated_Domain_Value_Definition: Business Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'P'
+
+          Enumerated_Domain_Value_Definition: By Pass
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'S'
+
+          Enumerated_Domain_Value_Definition: Spur
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'L'
+
+          Enumerated_Domain_Value_Definition: Loop
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'F'
+
+          Enumerated_Domain_Value_Definition: Proposed (future)
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'D'
+
+          Enumerated_Domain_Value_Definition: Temporary (detour)
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'T'
+
+          Enumerated_Domain_Value_Definition: Truck Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'N'
+
+          Enumerated_Domain_Value_Definition: None of the above
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: (Blank)
+
+          Enumerated_Domain_Value_Definition: No Qualifier, not signed, or not applicable.
+
+    Attribute:
+
+      Attribute_Label: SIGN2
+
+      Attribute_Definition: Contains the designated secondary Sign Route for the arc.
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: The character string is composed of three sub fields SIGNT2, SIGNN2, and SIGNQ2.
+
+    Attribute:
+
+      Attribute_Label: SIGNT2
+
+      Attribute_Definition: Describes the type of the sign route.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'I'
+
+          Enumerated_Domain_Value_Definition: Interstate
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'U'
+
+          Enumerated_Domain_Value_Definition: US Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'S'
+
+          Enumerated_Domain_Value_Definition: State Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'O'
+
+          Enumerated_Domain_Value_Definition: Off-Interstate Business Marker
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'C'
+
+          Enumerated_Domain_Value_Definition: County Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'T'
+
+          Enumerated_Domain_Value_Definition: Township
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'M'
+
+          Enumerated_Domain_Value_Definition: Municipal
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'P'
+
+          Enumerated_Domain_Value_Definition: Parkway or Forest Route Marker
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'N'
+
+          Enumerated_Domain_Value_Definition: None of the above
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: (blank)
+
+          Enumerated_Domain_Value_Definition: Not signed or not applicable
+
+    Attribute:
+
+      Attribute_Label: SIGNN2
+
+      Attribute_Definition: Contains the actual sign route numbers . Using HPMS standards, an optional directional indicator (N, S, E, W) can also be used as part of this field.
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Alpha Numeric
+
+    Attribute:
+
+      Attribute_Label: SIGNQ2
+
+      Attribute_Definition: Sign Route Qualifier Record which is used to qualify the sign route description follows the Sign Route Number.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'A'
+
+          Enumerated_Domain_Value_Definition: Alternate Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'B'
+
+          Enumerated_Domain_Value_Definition: Business Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'P'
+
+          Enumerated_Domain_Value_Definition: By Pass
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'S'
+
+          Enumerated_Domain_Value_Definition: Spur
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'L'
+
+          Enumerated_Domain_Value_Definition: Loop
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'F'
+
+          Enumerated_Domain_Value_Definition: Proposed (future)
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'D'
+
+          Enumerated_Domain_Value_Definition: Temporary (detour)
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'T'
+
+          Enumerated_Domain_Value_Definition: Truck Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'N'
+
+          Enumerated_Domain_Value_Definition: None of the above
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: (Blank)
+
+          Enumerated_Domain_Value_Definition: No Qualifier, not signed, or not applicable.
+
+    Attribute:
+
+      Attribute_Label: SIGN3
+
+      Attribute_Definition: Contains the designated additional secondary Sign Route for the arc.
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: The character string is composed of three sub fields SIGNT3, SIGNN3, and SIGNQ3.
+
+    Attribute:
+
+      Attribute_Label: SIGNT3
+
+      Attribute_Definition: Describes the type of the sign route.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'I'
+
+          Enumerated_Domain_Value_Definition: Interstate
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'U'
+
+          Enumerated_Domain_Value_Definition: US Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'S'
+
+          Enumerated_Domain_Value_Definition: State Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'O'
+
+          Enumerated_Domain_Value_Definition: Off-Interstate Business Marker
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'C'
+
+          Enumerated_Domain_Value_Definition: County Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'T'
+
+          Enumerated_Domain_Value_Definition: Township
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'M'
+
+          Enumerated_Domain_Value_Definition: Municipal
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'P'
+
+          Enumerated_Domain_Value_Definition: Parkway or Forest Route Marker
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'N'
+
+          Enumerated_Domain_Value_Definition: None of the above
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: (blank)
+
+          Enumerated_Domain_Value_Definition: Not signed or not applicable
+
+    Attribute:
+
+      Attribute_Label: SIGNN3
+
+      Attribute_Definition: Contains the actual sign route numbers . Using HPMS standards, an optional directional indicator (N, S, E, W) can also be used as part of this field.
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Alpha Numeric
+
+    Attribute:
+
+      Attribute_Label: SIGNQ3
+
+      Attribute_Definition: Sign Route Qualifier Record which is used to qualify the sign route description follows the Sign Route Number.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'A'
+
+          Enumerated_Domain_Value_Definition: Alternate Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'B'
+
+          Enumerated_Domain_Value_Definition: Business Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'P'
+
+          Enumerated_Domain_Value_Definition: By Pass
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'S'
+
+          Enumerated_Domain_Value_Definition: Spur
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'L'
+
+          Enumerated_Domain_Value_Definition: Loop
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'F'
+
+          Enumerated_Domain_Value_Definition: Proposed (future)
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'D'
+
+          Enumerated_Domain_Value_Definition: Temporary (detour)
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'T'
+
+          Enumerated_Domain_Value_Definition: Truck Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 'N'
+
+          Enumerated_Domain_Value_Definition: None of the above
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: (Blank)
+
+          Enumerated_Domain_Value_Definition: No Qualifier, not signed, or not applicable.
+
+
+
+    Attribute:
+
+      Attribute_Label: LNAME
+
+      Attribute_Definition: The LNAME field contains the local street name for the arc.
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Should not contain any punctuation characters other than blank, and hyphen.  Wherever possible CENSUS Feature Type abbreviations should be used to shorten the local name.
+
+    Attribute:
+
+      Attribute_Label: MILES
+
+      Attribute_Definition: Contains an accurate measurement in miles for the arc chain.
+
+    Attribute:
+
+      Attribute_Label: KM
+
+      Attribute_Definition: Contains an accurate measurement in kilometers for the arc chain.
+
+    Attribute:
+
+      Attribute_Label: FCLASS
+
+      Attribute_Definition: The Functional Classification field identifies the assigned functional class of each arc.  The Functional Class represents the assigned classification from the 2002 Highway Performance Monitoring System. For more current data for this field please contact, Ms. Mary Brown, FHWA Office of Highway Policy Information, at 202-366-0175.  
+
+      Attribute_Definition_Source: Highway Performance Monitoring System (HPMS)
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 1
+
+          Enumerated_Domain_Value_Definition: Rural Interstate
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 2
+
+          Enumerated_Domain_Value_Definition: Rural Principal Arterial
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 6
+
+          Enumerated_Domain_Value_Definition: Rural Minor Arterial
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 7
+
+          Enumerated_Domain_Value_Definition: Rural Major Collector
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 8
+
+          Enumerated_Domain_Value_Definition: Rural Minor Collector
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 9
+
+          Enumerated_Domain_Value_Definition: Rural Local
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 11
+
+          Enumerated_Domain_Value_Definition: Urban Interstate
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 12
+
+          Enumerated_Domain_Value_Definition: Urban Freeway or Expressway
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 14
+
+          Enumerated_Domain_Value_Definition: Urban Principal Arterial
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 16
+
+          Enumerated_Domain_Value_Definition: Urban Minor Arterial
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 17
+
+          Enumerated_Domain_Value_Definition: Urban Collector
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 19
+
+          Enumerated_Domain_Value_Definition: Urban Local
+
+    Attribute:
+
+      Attribute_Label: RUCODE
+
+      Attribute_Definition: Describes the Rural/Urban classification of the arc.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 1
+
+          Enumerated_Domain_Value_Definition: Rural
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 2
+
+          Enumerated_Domain_Value_Definition: Small Urban (Census 2000 pop 5,000 -49,999)
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 3
+
+          Enumerated_Domain_Value_Definition: Large Urban (Census 2000 pop >= 50,000)
+
+    Attribute:
+
+      Attribute_Label: STATUS
+
+      Attribute_Definition: Describes availability of the arc to through traffic.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 0
+
+          Enumerated_Domain_Value_Definition: Proposed/Under construction
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 1
+
+          Enumerated_Domain_Value_Definition: Open to traffic
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 2
+
+          Enumerated_Domain_Value_Definition: Ferry route
+
+    Attribute:
+
+      Attribute_Label: NHS
+
+      Attribute_Definition: Special subnetwork for the National Highway System. The following values were converted per direction from the FHWA: 2 (ISTEA High Priority Corridor) was converted to 7 (Other NHS) , 5 (ISTEA High Priority Corridor/ Non-Interstate STRAHNET) was converted to 3 (Non-Interstate STRAHNET), 6 (ISTEA High Priority Corridor/STRAHNET Connector) was converted to 4 (STRAHNET Connector).
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 0
+
+          Enumerated_Domain_Value_Definition: Not on NHS
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 1
+
+          Enumerated_Domain_Value_Definition: Interstate
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 3
+
+          Enumerated_Domain_Value_Definition: Non-Interstate STRAHNET
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 4
+
+          Enumerated_Domain_Value_Definition: STRAHNET Connector
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 7
+
+          Enumerated_Domain_Value_Definition: Other NHS
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 8
+
+          Enumerated_Domain_Value_Definition: Approved Intermodal Connector
+
+    Attribute:
+
+      Attribute_Label: STRAHNET
+
+      Attribute_Definition: Special subnetwork for the Strategic Highway Corridor Network as identified by FHWA and the Military Surface Deployment and Distribution Command Transportation Engineering Agency.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 0
+
+          Enumerated_Domain_Value_Definition: Not on STRAHNET
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 1
+
+          Enumerated_Domain_Value_Definition: STRAHNET Priority 1 Connector
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 2
+
+          Enumerated_Domain_Value_Definition: STRAHNET Priority 2 Connector
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 3
+
+          Enumerated_Domain_Value_Definition: Non-Interstate STRAHNET
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 4
+
+          Enumerated_Domain_Value_Definition: Interstate—-Designated Urban 16ft. Vertical Clearance Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 5
+
+          Enumerated_Domain_Value_Definition: Interstate—-Non-Designated Urban 16ft. Vertical Clearance Route
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 6
+
+          Enumerated_Domain_Value_Definition: Interstate—all other
+
+    Attribute:
+
+      Attribute_Label: FAC_ID
+
+      Attribute_Definition: FHWA Designated Intermodal Facility or Military Installation Unique ID
+
+      Attribute_Definition_Source: Federal Highway Administration
+
+    Attribute:
+
+      Attribute_Label: CONN_ID
+
+      Attribute_Definition: FHWA Designated Intermodal Facility Unique ID
+
+      Attribute_Definition_Source: Federal Highway Administration
+
+    Attribute:
+
+      Attribute_Label: CONN_DES
+
+      Attribute_Definition: Description of Intermodal Facility Connectors or Milittary Installation Connectors
+
+      Attribute_Definition_Source: Federal Highway Administration
+
+    Attribute:
+
+      Attribute_Label: CONN_MILES
+
+      Attribute_Definition: Total Mileage of the Designated Connector
+
+      Attribute_Definition_Source: Federal Highway Administration
+
+    Attribute:
+
+      Attribute_Label: LRSKEY
+
+      Attribute_Definition: Uniquely identifies a route within a state.
+
+      Attribute_Definition_Source: Highway Performance Monitoring System
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Created by combining 2 data items from the HPMS:  the 12 character LRS Identification field (HPMS Data Item 10) plus the 3 character County FIPS Code (HPMS Data Item 4).
+
+    Attribute:
+
+      Attribute_Label: LRSSEQ
+
+      Attribute_Definition: NHPN Arc Mile Point Sequence Number
+
+    Attribute:
+
+      Attribute_Label: BEGMP
+
+      Attribute_Definition: Beginning Mile Point for NHPN arc segment.
+
+    Attribute:
+
+      Attribute_Label: ENDMP
+
+      Attribute_Definition: Ending Mile Point of NHPN arc segment.
+
+    Attribute:
+
+      Attribute_Label: AADT
+
+      Attribute_Definition: The Annual Average Daily Traffic field comes from the 2002 Highway Performance Monitoring System. For more current data for this field please contact, Ms. Mary Brown, FHWA Office of Highway Policy Information, at 202-366-0175. For NHPN, this data item is only available for most of the NHS Arcs.
+
+    Attribute:
+
+      Attribute_Label: THRULANES
+
+      Attribute_Definition_Source: Highway Performance Monitoring System
+
+      Attribute_Definition: The Number of through lanes field indicates the number of striped lanes in both directions.  This field does not include auxiliary lanes, such as collector-distributor lanes, weaving lanes, frontage road lanes, parking and turning lanes, acceleration/deceleration lanes, toll collection lanes and truck climbing lanes. Data comes from the 2002 Highway Performance Monitoring System. For more current data for this field please contact, Ms. Mary Brown, FHWA Office of Highway Policy Information, at 202-366-0175. For NHPN, this data item is only available for most of the NHS Arcs.
+
+    Attribute:
+
+      Attribute_Label: OWNERSHIP
+
+      Attribute_Definition: The Government Ownership field identifies the road owner and comes from the 2002 Highway Performance Monitoring System. For purposes of this data item: “State” means owned by one of the 50 States, the District of Columbia, or the Commonwealth of Puerto Rico including quasi-official State commissions or organizations; “County, local, municipal, town, or township” means owned by one of the officially recognized governments established under State authority; “Federal” means owned by one of the branches of the U.S. Government or independent establishments, government corporations, quasi-official agencies, organizations, or instrumentalities; “Other” means owned by tribal Nations, or nongovernmental organizations with the authority to build, operate, or maintain toll or free highway facilities. For more current data for this field please contact, Ms. Mary Brown, FHWA Office of Highway Policy Information, at 202-366-0175. For NHPN, this data item is only available for most of the NHS Arcs.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 1
+
+          Enumerated_Domain_Value_Definition: State Highway Agency
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 2
+
+          Enumerated_Domain_Value_Definition: County Highway Agency
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 3
+
+          Enumerated_Domain_Value_Definition: Town or Township Highway Agency
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 4
+
+          Enumerated_Domain_Value_Definition: Municipal Highway Agency
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 5
+
+          Enumerated_Domain_Value_Definition: Other State Agency
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 6
+
+          Enumerated_Domain_Value_Definition: Other Local Agency
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 7
+
+          Enumerated_Domain_Value_Definition: Federal Agency
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 8
+
+          Enumerated_Domain_Value_Definition: Other
+
+  Detailed_Description:
+
+    Entity_Type:
+
+      Entity_Type_Label: Route
+
+    Attribute:
+
+      Attribute_Label: USLRSKEY
+
+      Attribute_Definition: Identifies nationwide Route Definition records.
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Created by combining the 2 digit state FIPS code and the LRSKEY (following Attribute).
+
+    Attribute:
+
+      Attribute_Label: LRSKEY
+
+      Attribute_Definition: Uniquely identifies a route within a state.
+
+      Attribute_Definition_Source: Highway Performance Monitoring System
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Created by combining 2 data items from the HPMS:  the 12 character LRS Identification field (HPMS Data Item 10) plus the 3 character County FIPS Code (HPMS Data Item 4).
+
+    Attribute:
+
+      Attribute_Label: EDITYEAR
+
+      Attribute_Definition: The LRS submission year.
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Positive Integers
+
+    Attribute:
+
+      Attribute_Label: STFIPS
+
+      Attribute_Definition: State FIPS code for the Route
+
+      Attribute_Definition_Source: Federal Information Processing Standards
+
+    Attribute:
+
+      Attribute_Label: CTFIPS
+
+      Attribute_Definition: 3 digit FIPS Code for the County the Route resides.
+
+      Attribute_Definition_Source: Federal Information Processing Standards
+
+    Attribute:
+
+      Attribute_Label: INVROUTE
+
+      Attribute_Definition: Inventory Route code for the route segment.
+
+      Attribute_Definition_Source: Highway Performance Monitoring System
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: First 10 characters of LRS Identification field (HPMS Data Item 10)
+
+    Attribute:
+
+      Attribute_Label: SUBROUTE
+
+      Attribute_Definition: Inventory Subroute code for the route segment.
+
+      Attribute_Definition_Source: Highway Performance Monitoring System
+
+      Attribute_Domain_Values:
+
+        Unrepresentable_Domain: Last 2 characters of LRS Identification field (HPMS Data Item 10)
+
+    Attribute:
+
+      Attribute_Label: BEGMPT
+
+      Attribute_Definition: Contains the beginning reference point for the route segment in miles.
+
+    Attribute:
+
+      Attribute_Label: ENDMPT
+
+      Attribute_Definition: Contains the end reference point for the route segment in miles.
+
+    Attribute:
+
+      Attribute_Label: EDITED
+
+      Attribute_Definition: Shows whether or not the selected feature has been edited, or if the feature has been flagged.
+
+      Attribute_Domain_Values:
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 0
+
+          Enumerated_Domain_Value_Definition: Not Edited
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 1
+
+          Enumerated_Domain_Value_Definition: Edited
+
+        Enumerated_Domain:
+
+          Enumerated_Domain_Value: 2
+
+          Enumerated_Domain_Value_Definition: Flagged
+
+    Attribute:
+
+      Attribute_Label: NOTES
+
+      Attribute_Definition: Used to describe special cases and to note issues with specific routes.
+
+Distribution_Information:
+
+  Resource_Description: Downloadable Data
+
+Metadata_Reference_Information:
+
+  Metadata_Date: 20050815
+
+  Metadata_Contact:
+
+    Contact_Information:
+
+      Contact_Organization_Primary:
+
+        Contact_Organization: Office of Interstate & Border Planning (HEPI-10)
+
+        Contact_Person: Mr. Mark J. Sarmiento
+
+      Contact_Address:
+
+        Address_Type: mailing address
+
+        Address: 400 7th Street, SW
+
+        City: Washington
+
+        State_or_Province: DC
+
+        Postal_Code: 20590
+
+        Country: USA
+
+      Contact_Voice_Telephone: (202) 366-4828
+
+  Metadata_Standard_Name: FGDC Content Standards for Digital Geospatial Metadata
+
+  Metadata_Standard_Version: FGDC-STD-001-1998
+
+  Metadata_Time_Convention: local time
+
+  Metadata_Extensions:
+
+    Online_Linkage: http://www.esri.com/metadata/esriprof80.html
+
+    Profile_Name: ESRI Metadata Profile
+
+
+
+
+
+
+
+
