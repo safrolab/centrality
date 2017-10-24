@@ -4,6 +4,11 @@
 %load('HB/lap_25')
 %load('HB/saylr1')
 load('grid10x10.mat')
+%load('two_clique_Newman.mat')
+%load('two_clique_Hayato.mat')
+%load('two_clique_Hayato2.mat')
+%load('two_clique_Hayato3.mat')
+%load('two_clique_Hayato5.mat')
 %load('twitter.mat')
 %load('star_path_star2.mat')
 %load('HB/1138_bus')
@@ -18,9 +23,9 @@ A(A > 0) = 1;
 
 
 steps= 3;
-num_labelled_nodes = 30;
+num_labelled_nodes = n;
 labelled_nodes = randperm(n,num_labelled_nodes);
-%labelled_nodes = [12 23 34];
+%labelled_nodes = [21 41 61 81 92 94 96 98 ];
 I = speye(n);
 J = sparse(n,n);
 
@@ -59,56 +64,83 @@ B(n*steps +2, n*steps +3) = 1;
 %term_nodes = [terminal];
 
 
-copy_B = B;
 
-centrality = zeros(n,1);
-I = speye(n*steps + 1, n*steps + 1);
 
-Z = I;
+centrality_B = zeros(n*steps + 1,1);
+I_z = speye(n*steps + 1, n*steps + 1);
+
+Z = I_z;
 for i=1:n + 1
     Z = Z + B^i;
 end
-%for source = 1:n-1
-%    for terminal= source + 1: n
-        source = 1;
-        terminal = 45;
-        term_nodes = sparse(steps,1);
-        term_nodes(1) = terminal;
-        for i=1:steps-1
-            term_nodes(i + 1) = terminal + i*n;
-        end
-        for i=1:steps
-            copy_B(term_nodes(i), :) =sparse(1,n*steps  +1);
-        end
-        %term_nodes connect to t (n*steps + 1)
-        copy_B(term_nodes, n*steps + 1) =1;
-        [nodes, new_s, new_t, new_B] = get_st_neighborhood(Z, copy_B,source,terminal,n, steps);
-        [~, new_n] = size(new_B);
-        [cen] = st_biased_random_walk_BC(new_B, new_n, new_s, new_t);
-        %[Incidence_mat, abs_Inc] = Adj_to_Incdnce_mat(copy_B);
-        %L = Incidence_mat*Incidence_mat';
-        
-        %{
-        L_t = L;
-        L_t(n*steps + 3, :) = [];
-        L_t(:, n*steps + 3) = [];
-        s = sparse(n*steps +2,1);
-        s(source) = 1;
-        V_t = L_t\s;
-        V = sparse(n*steps + 3, 1);
-        V(1:n*steps + 2, 1) = V_t;
-        f = Incidence_mat'*V;
-        net_flow = abs_Inc*f;
+%%
+X = sparse(n*steps + 1, n);
+for i=0:steps-1
+    X(i*n+1:(i+1)*n, :) = I;
+end
+for source = 1:n
+    for terminal= 1:n
+        if source ~= terminal
+            %source = 60;
+            %terminal  = 94;
+            %[source, terminal]
+            term_nodes = sparse(steps,1);
+            term_nodes(1) = terminal;
+            for i=1:steps-1
+                term_nodes(i + 1) = terminal + i*n;
+            end
+            copy_B = B;
+            for i=1:steps
+                copy_B(term_nodes(i), :) =sparse(1,n*steps  +1);
+            end
+            
+            %term_nodes connect to t (n*steps + 1)
+            copy_B(term_nodes, n*steps + 1) =1;
+            [nodes, new_s, new_t, new_B] = get_st_neighborhood(Z, copy_B,source,terminal,n, steps);
+            if new_s > 0
+                [~, new_n] = size(new_B);
+                [cen] = st_biased_random_walk_BC(new_B, new_n, new_s, new_t);
+                centrality_B(nodes) = centrality_B(nodes) + cen;
+                
+                %%
+                %{
+                centrality = centrality_B'*X;
+            
+            ct = centrality';
 
-        X = sparse(n*steps + 3, n);
-        for i=0:steps-1
-            X(i*n+1:(i+1)*n, :) = I;
+            V = [ct(1:10) ct(11:20) ...
+                ct(21:30) ct(31:40)...
+                ct(41:50) ct(51:60)...
+                ct(61:70) ct(71:80)... 
+                ct(81:90) ct(91:100)];
+            %heatmap(V);
+            %[source, terminal, ct(source), ct(terminal)]
+            %pause(0.00000001);
+                %}
+%%
+           end
         end
-        nod_net_flow = X'*net_flow;
-        centrality  = centrality + nod_net_flow;
-        %}
-%    end
-%end
+   end
+end
+
+
+%%
+c_end   = centrality_B(end);
+centrality_B = centrality_B/c_end;
+%%
+
+centrality = centrality_B'*X;
+%%
+centrality = centrality';
+%%
+
+V = [centrality(1:10) centrality(11:20) ...
+   centrality(21:30) centrality(31:40)...
+    centrality(41:50) centrality(51:60)...
+    centrality(61:70) centrality(71:80)... 
+   centrality(81:90) centrality(91:100)];
+heatmap(V);
+
 %heatmap(nod_net_flow )
 %L1 = Incidence_mat*Incidence_mat';
 %A1 = copy_B + copy_B';
@@ -129,3 +161,5 @@ V = [centrality(1:10) centrality(11:20) ...
 %heatmap(U)clf
 heatmap(V);
 %}
+
+%%

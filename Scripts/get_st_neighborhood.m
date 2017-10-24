@@ -15,16 +15,12 @@ if any(s_index(term_nodes) > 0) == 1
     t_index = (Z*term_vec);
 
     intersect = s_index' & t_index;
-    size(intersect)
     temp = 1:n*steps + 1;
     nodes_  = temp(intersect);
-    size(nodes_)
     nodes = [ nodes_ n*steps + 1];
     new_s = find(nodes == s, 1);
     new_t = find(nodes == n*steps + 1, 1, 'last');
     new_B = B(nodes,nodes);
-
-    spy(new_B)
 else
     nodes = -1;
     new_s = -1;

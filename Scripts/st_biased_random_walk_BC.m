@@ -3,9 +3,10 @@ function [centrality] = st_biased_random_walk_BC(A, n, s, t)
 %   1) A is a sparse matrix
 %   2) Every node has finite distance to node t
 
-dist = graphshortestpath(A', t) + 1;
-%dist = ones(1,n);
-dist_inv = dist.^(-1);
+%dist = graphshortestpath(A', t) + 1;
+%dist_inv = dist.^(-1);
+dist = ones(1,n);
+dist_inv = dist;
 
 W = spdiags([dist_inv'], 0, n,n);
 A = A*W;
@@ -19,9 +20,29 @@ D_t(t,:) = [];
 D_t(:,t) = [];
 A_t(t,:) = [];
 A_t(:,t) = [];
+
+ss = sparse(n,1);
+ss(s) = 1;
+ss_t = ss;
+ss_t(t) = [];
+
 %D_t_inv = D_t^(-1);
 M_t = D_t\A_t;
 I_t = speye(n-1);
+
+V_t = (I_t - M_t')\ss_t;
+V = sparse(n,1);
+if t == 1
+    V(2:n) = V_t;
+elseif t == n
+    V(1:n-1) = V_t;
+else
+    V(1:t-1) = V_t(1:t-1);
+    %Z(1:t-1, t+1:n) = Z_t(1:t-1, t:n-1);
+    V(t+1:n) = V_t(t:n-1);
+    %Z(t+1:n, t+1:n) = Z_t(t:n-1, t:n-1);
+end
+%{
 Z_t = (I_t - M_t)\speye(n-1,n-1);
 s_index = sparse(1,n);
 s_index(s) = 1;
@@ -38,7 +59,8 @@ else
 end
 
 V = s_index*Z;
-D_V = spdiags([V'], 0, n,n);
+%}
+D_V = spdiags([V], 0, n,n);
 flow_mat = D_V*M;
 %G = digraph(flow_mat);
 %plot(G,'EdgeLabel',G.Edges.Weight)
