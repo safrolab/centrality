@@ -78,7 +78,7 @@ X = sparse(n*steps + 1, n);
 for i=0:steps-1
     X(i*n+1:(i+1)*n, :) = I;
 end
-for source = 1:n
+parfor source = 1:n
     for terminal= 1:n
         if source ~= terminal
             %source = 60;
@@ -100,7 +100,9 @@ for source = 1:n
             if new_s > 0
                 [~, new_n] = size(new_B);
                 [cen] = st_biased_random_walk_BC(new_B, new_n, new_s, new_t);
-                centrality_B(nodes) = centrality_B(nodes) + cen;
+                parTemp = zeros(n*steps + 1,1);
+                parTemp(nodes) = cen;
+                centrality_B = centrality_B + parTemp;
                 
                 %%
                 %{
