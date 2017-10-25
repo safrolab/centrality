@@ -128,6 +128,7 @@ end
 
 %%
 c_end   = centrality_B(end);
+c_end = 1;
 centrality_B = centrality_B/c_end;
 %%
 

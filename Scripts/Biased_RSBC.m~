@@ -3,12 +3,12 @@
 %ssget('HB/lap_25')%
 %load('HB/lap_25')
 %load('HB/saylr1')
-%load('grid10x10.mat')
+load('grid10x10.mat')
 %load('two_clique_Newman.mat')
 %load('two_clique_Hayato.mat')
 %load('two_clique_Hayato2.mat')
 %load('two_clique_Hayato3.mat')
-load('two_clique_Hayato4.mat')
+%load('two_clique_Hayato5.mat')
 %load('twitter.mat')
 %load('star_path_star2.mat')
 %load('HB/1138_bus')
@@ -78,9 +78,9 @@ X = sparse(n*steps + 1, n);
 for i=0:steps-1
     X(i*n+1:(i+1)*n, :) = I;
 end
-for source = 1:n
-    for terminal= 1:n
-        if source ~= terminal
+parfor source = 1:n
+    for terminal= source + 1:n
+        if source < terminal
             %source = 60;
             %terminal  = 94;
             %[source, terminal]
@@ -100,7 +100,9 @@ for source = 1:n
             if new_s > 0
                 [~, new_n] = size(new_B);
                 [cen] = st_biased_random_walk_BC(new_B, new_n, new_s, new_t);
-                centrality_B(nodes) = centrality_B(nodes) + cen;
+                parTemp = zeros(n*steps + 1,1);
+                parTemp(nodes) = cen;
+                centrality_B = centrality_B + parTemp;
                 
                 %%
                 %{
@@ -126,6 +128,7 @@ end
 
 %%
 c_end   = centrality_B(end);
+c_end = 1;
 centrality_B = centrality_B/c_end;
 %%
 
@@ -133,12 +136,14 @@ centrality = centrality_B'*X;
 %%
 centrality = centrality';
 %%
+
 V = [centrality(1:10) centrality(11:20) ...
    centrality(21:30) centrality(31:40)...
     centrality(41:50) centrality(51:60)...
     centrality(61:70) centrality(71:80)... 
    centrality(81:90) centrality(91:100)];
 heatmap(V);
+
 %heatmap(nod_net_flow )
 %L1 = Incidence_mat*Incidence_mat';
 %A1 = copy_B + copy_B';
