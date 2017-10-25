@@ -41,8 +41,8 @@ for i=0:steps-1
 end
 parfor source = 1:n
     source
-    for terminal= source+1:n-1
-        %if source ~= terminal
+    for terminal= 1:n
+        if source ~= terminal
             term_nodes = sparse(steps,1);
             term_nodes(1) = terminal;
             for i=1:steps-1
@@ -64,7 +64,7 @@ parfor source = 1:n
                 centrality_B = centrality_B + parTemp;
                 %centrality_B(nodes) = centrality_B(nodes) + cen;
            end
-        %end
+       end
    end
 end
 
