@@ -4,7 +4,7 @@ B  = [1 0 -1 0 0 0
     0 0 1 1 1 0
     0 0 0 0 -1 -1];
 L = B*B';
-
+%%
 D = diag(diag(L));
 A = D - L;
 A(2,1) = 0;
@@ -219,3 +219,13 @@ F = diag(s*T);
 flow = F*A;
 G = digraph(flow);
 plot(G,'EdgeLabel',G.Edges.Weight)
+
+%%
+x = zeros(10,1);
+nodes = [1 3 4];
+parfor i = 1:10
+   temp = zeros(10,1);
+   temp(nodes) = rand(3,1);
+   x = x + temp;
+end
+x

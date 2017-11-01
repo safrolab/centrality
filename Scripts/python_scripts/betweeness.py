@@ -74,22 +74,22 @@ def _single_source_shortest_path_basic(G, G_n_soc_nodes, s, steps, install_units
         node_v, soc_v = v
         if soc_v != 'terminal':
             for node_w in G[node_v]:
-                #if node_w != s[0]: # dont return to source node
-                if install_units[node_w]:
-                    #recharge soc
-                    current_node = (node_w, steps - 1) #full soc  = steps - 1
-                else:
-                    if soc_v > 0:
-                        current_node = (node_w, soc_v - 1) #full soc  = steps - 1
+                if node_w != s[0]: # dont return to source node
+                    if install_units[node_w]:
+                        #recharge soc
+                        current_node = (node_w, steps - 1) #full soc  = steps - 1
                     else:
-                        current_node = None
-                if current_node:
-                    if current_node not in D:
-                        Q.push(current_node)
-                        D[current_node] = Dv + 1
-                    if D[current_node] == Dv + 1: # this is a shortest path, count paths
-                        sigma[current_node] += sigmav
-                        P[current_node].append(v)  # predecessors\
+                        if soc_v > 0:
+                            current_node = (node_w, soc_v - 1) #full soc  = steps - 1
+                        else:
+                            current_node = None
+                    if current_node:
+                        if current_node not in D:
+                            Q.push(current_node)
+                            D[current_node] = Dv + 1
+                        if D[current_node] == Dv + 1: # this is a shortest path, count paths
+                            sigma[current_node] += sigmav
+                            P[current_node].append(v)  # predecessors\
             current_node = (node_v, 'terminal')
             if current_node not in D:
                 Q.push(current_node)
@@ -182,7 +182,7 @@ def soc_betweenness_centrality(G, soc_nodes, steps, install_units, k=None,
         random.seed(seed)
         nodes = random.sample(G.nodes(), k)
     for node_s in nodes:
-        #print("node_s", node_s)
+        print("node_s", node_s)
         # single source shortest paths
         # use BFS
         #S, P, sigma = _single_source_shortest_path_basic(G, s)
@@ -252,7 +252,7 @@ def shortest_path_subgraph(G, s):
         if terminal_nodes[node]:
             print(node, nx.shortest_path_length(G, s, node))
     
-def draw_graph(graph, mybetweenness, standard_betweenness):
+def draw_graph(graph, mybetweenness, standard_betweenness, cordfile):
 
     m_betweenness = []
     s_betweenness = []
@@ -261,23 +261,59 @@ def draw_graph(graph, mybetweenness, standard_betweenness):
         s_betweenness.append(standard_betweenness[node])
     node_sizes = []
     for node in sorted(graph.nodes()):
-        node_sizes.append(int(mybetweenness[node]))
-    pos = graphviz_layout(graph, prog='sfdp')
+        node_sizes.append(int(mybetweenness[node])/2000)
+    #pos = graphviz_layout(graph, prog='sfdp')
+    x, y = get_coordinates(cordfile)   
+    pos = {}
+    for node in graph.nodes():
+        pos[node] = [x[node-1], y[node-1]]
 
-
-    nx.draw(graph, pos, node_size = node_sizes, node_color=m_betweenness)
-    plt.savefig("mybetweenness.png") 
+    #nx.draw(graph, pos, node_size = node_sizes, node_color=m_betweenness)
+    nodes = nx.draw_networkx_nodes(G,pos,node_color=m_betweenness, node_size =80,
+                cmap=plt.cm.autumn_r, linewidths=0, with_labels=False)
+    edges = nx.draw_networkx_edges(G,pos,edge_color='gray',width=1)
+    plt.colorbar(nodes)
+    plt.axis('off') 
+    
+    
+    plt.savefig("mybetweenness.eps") 
     #plt.show()
+    
     node_sizes = []
     for node in sorted(graph.nodes()):
-        node_sizes.append(int(standard_betweenness[node])/5)
+        node_sizes.append(int(standard_betweenness[node])/2000)
+        
+  
     plt.clf()
-    nx.draw(graph, pos, node_size = node_sizes, node_color=s_betweenness)
-    plt.savefig("standard_betweenness.png") 
+    
+    #nx.draw(graph, pos, node_size =80, node_color=s_betweenness
+    #            ,linewidths=0, cmap=plt.cm.autumn_r, edge_color='grey', with_labels=False)
+    
+    nodes = nx.draw_networkx_nodes(G,pos,node_color=s_betweenness, node_size =80,
+                cmap=plt.cm.autumn_r, linewidths=0, with_labels=False)
+    edges = nx.draw_networkx_edges(G,pos,edge_color='gray',width=1)
+    plt.colorbar(nodes)
+    plt.axis('off')                         
+                               
+    plt.savefig("standard_betweenness.eps") 
     #plt.show()
 
+def draw_debug_graph(graphfile, cordfile):
+    #G = nx.read_edgelist(graphfile, nodetype=int)
+    G = nx.Graph()
+    edges = np.genfromtxt(graphfile, dtype='int')
+    
+    for u,v in edges:
+        G.add_edge(u,v)
+    x, y = get_coordinates(cordfile)   
 
-
+    pos = {}
+    for node in G.nodes():
+        pos[node] = [x[node-1], y[node-1]]
+    
+    nx.draw(G, pos, node_size = 10)
+    #plt.plot(x,y, 'o')
+    plt.show()
 
 def debug():
     G = nx.karate_club_graph()
@@ -292,6 +328,9 @@ def debug():
     
     graphfile = '/home/hushiji/Research/centrality/Scripts/data/minesota_graph.txt'
     cordfile = '/home/hushiji/Research/centrality/Scripts/data/minnesota_coord.mtx'
+    
+   
+    """
     G = nx.read_edgelist(graphfile, nodetype=int)
     #draw_cord_graph(graphfile, cordfile)
     #G = nx.cycle_graph(10)
@@ -311,6 +350,7 @@ def debug():
     #install_nodes = G.nodes()
     for node in install_nodes:
         install_units[node] = True
+        """
     """
     s = (2,steps-1)
     S, P, sigma, D = _single_source_shortest_path_basic(G, G_n_soc_nodes, s, steps,
@@ -366,14 +406,16 @@ def debug_graphs():
     return G
 
 if __name__ == '__main__':  
-    graphfile = '/home/hushiji/Research/centrality/Scripts/data/minesota_graph.txt'
-    cordfile = '/home/hushiji/Research/centrality/Scripts/data/minnesota_coord.mtx'
-    #G = nx.read_edgelist(graphfile, nodetype=int)
+    graphfile = '/home/hayato/Research/centrality/Scripts/data/minnesota.mtx'
+    cordfile = '/home/hayato/Research/centrality/Scripts/data/minnesota_coord.mtx'
+    
+
+    G = nx.read_edgelist(graphfile, nodetype=int)
     #G = nx.karate_club_graph()
     #G = nx.grid_2d_graph(5,5)
-    G = debug_graphs()
+    #G = debug_graphs()
     #G = nx.convert_node_labels_to_integers(G)
-    steps = 6
+    steps = 20
     G_n_soc_nodes = []
     install_units = {}
     for node in G.nodes():
@@ -388,6 +430,9 @@ if __name__ == '__main__':
     for node in install_nodes:
         install_units[node] = True
     mybetweenness = betweenness_centrality(G, G_n_soc_nodes, steps, install_units)
+    #btn = sorted([(mybetweenness[node], node) for node in mybetweenness], reverse=True)
+    #for _, node in btn:
+    #    print node, mybetweenness[node]
     standard_betweenness = nx.betweenness_centrality(G, normalized=False, endpoints=True)
-    draw_graph(G, mybetweenness, standard_betweenness)
-
+    draw_graph(G, mybetweenness, standard_betweenness, cordfile)
+   
