@@ -39,10 +39,17 @@ X = sparse(n*steps + 1, n);
 for i=0:steps-1
     X(i*n+1:(i+1)*n, :) = I;
 end
+<<<<<<< HEAD
 for source = 1:n
     %source
     for terminal= source+1:n-1
         %if source ~= terminal
+=======
+parfor source = 1:n
+    source
+    for terminal= 1:n
+        if source ~= terminal
+>>>>>>> 0c06347d7c9e04e3973e45591b22b565280b1dc4
             term_nodes = sparse(steps,1);
             term_nodes(1) = terminal;
             for i=1:steps-1
@@ -64,7 +71,7 @@ for source = 1:n
                 centrality_B = centrality_B + parTemp;
                 %centrality_B(nodes) = centrality_B(nodes) + cen;
            end
-        %end
+       end
    end
 end
 

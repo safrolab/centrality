@@ -3,10 +3,11 @@ function [centrality] = st_biased_random_walk_BC(A, n, s, t)
 %   1) A is a sparse matrix
 %   2) Every node has finite distance to node t
 
-%dist = graphshortestpath(A', t) + 1;
+dist = graphshortestpath(A', t) + 1;
 %dist_inv = dist.^(-1);
-dist = ones(1,n);
-dist_inv = dist;
+dist_inv = exp(-dist);
+%dist = ones(1,n);
+%dist_inv = dist;
 
 W = spdiags([dist_inv'], 0, n,n);
 A = A*W;

@@ -52,6 +52,6 @@ title('Betweenness Centrality Scores - Unweighted')
 %% 
 % Random Walk Centrality: Hayato
 %%
-wcc = RW_centrality_rand_install(G.adjacency,3,n);
-p.NodeCData = wcc;
-title('Random Walk Centrality Scores - Unweighted')
+%wsc = RW_centrality_rand_install(G.adjacency,3,n);
+p.NodeCData = wsc;
+title('Short Random Walk Centrality Scores - Unweighted')
