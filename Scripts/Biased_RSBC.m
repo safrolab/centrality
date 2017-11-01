@@ -3,8 +3,8 @@
 %ssget('HB/lap_25')%
 %load('HB/lap_25')
 %load('HB/saylr1')
-load('grid10x10.mat')
-%load('two_clique_Newman.mat')
+%load('grid10x10.mat')
+load('two_clique_Newman.mat')
 %load('two_clique_Hayato.mat')
 %load('two_clique_Hayato2.mat')
 %load('two_clique_Hayato3.mat')
@@ -104,22 +104,7 @@ parfor source = 1:n
                 parTemp(nodes) = cen;
                 centrality_B = centrality_B + parTemp;
                 
-                %%
-                %{
-                centrality = centrality_B'*X;
-            
-            ct = centrality';
 
-            V = [ct(1:10) ct(11:20) ...
-                ct(21:30) ct(31:40)...
-                ct(41:50) ct(51:60)...
-                ct(61:70) ct(71:80)... 
-                ct(81:90) ct(91:100)];
-            %heatmap(V);
-            %[source, terminal, ct(source), ct(terminal)]
-            %pause(0.00000001);
-                %}
-%%
            end
         end
    end
@@ -128,7 +113,6 @@ end
 
 %%
 c_end   = centrality_B(end);
-c_end = 1;
 centrality_B = centrality_B/c_end;
 %%
 
@@ -136,14 +120,14 @@ centrality = centrality_B'*X;
 %%
 centrality = centrality';
 %%
-
+%{
 V = [centrality(1:10) centrality(11:20) ...
    centrality(21:30) centrality(31:40)...
     centrality(41:50) centrality(51:60)...
     centrality(61:70) centrality(71:80)... 
    centrality(81:90) centrality(91:100)];
 heatmap(V);
-
+%}
 %heatmap(nod_net_flow )
 %L1 = Incidence_mat*Incidence_mat';
 %A1 = copy_B + copy_B';

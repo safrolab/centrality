@@ -10,11 +10,17 @@ dist_inv = dist;
 
 W = spdiags([dist_inv'], 0, n,n);
 A = A*W;
+%A = A.*dist_inv; %A = A*W;
 d = A*ones(n,1);
+%d(t) = 1;
+%d_inv = d.^(-1);
+%M = A.*d_inv;
 D = spdiags([d], 0, n,n);
 D(t,t) = 1;
 M = D\A;
 A_t = A;
+%d_inv_t = d;
+%d_inv_t(t) = [];
 D_t = D;
 D_t(t,:) = [];
 D_t(:,t) = [];
@@ -28,6 +34,7 @@ ss_t(t) = [];
 
 %D_t_inv = D_t^(-1);
 M_t = D_t\A_t;
+%M_t = A_t.*d_inv_t;
 I_t = speye(n-1);
 
 V_t = (I_t - M_t')\ss_t;
@@ -62,8 +69,9 @@ V = s_index*Z;
 %}
 D_V = spdiags([V], 0, n,n);
 flow_mat = D_V*M;
-%G = digraph(flow_mat);
-%plot(G,'EdgeLabel',G.Edges.Weight)
+%flow_mat = M.*V;
+G = digraph(flow_mat);
+plot(G,'EdgeLabel',G.Edges.Weight)
 net_flow_mat = abs(flow_mat - flow_mat');
 centrality = 0.5*net_flow_mat*ones(n,1);
 %centrality = (s_index*TA)';

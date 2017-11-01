@@ -1,5 +1,6 @@
 %ssget('Newman/karate')
-load('Newman/karate.mat')
+%load('Newman/karate.mat')
+load('two_clique_Newman.mat')
 %ssget('HB/lap_25')%
 %load('HB/lap_25')
 %load('HB/saylr1')
@@ -7,7 +8,7 @@ load('Newman/karate.mat')
 %load('twitter.mat')
 %load('star_path_star2.mat')
 %load('HB/1138_bus')
-A = Problem.A;
+%A = Problem.A;
 G = graph(A);
 %A = G.adjacency;
 %plot(G)
@@ -19,7 +20,7 @@ A(A > 0) = 1;
 %source = 17;
 %terminal = 11;
 steps= 3;
-num_labelled_nodes = 10;
+num_labelled_nodes = 11;
 labelled_nodes = randperm(n,num_labelled_nodes);
 %labelled_nodes = [6 7 5];
 I = speye(n);

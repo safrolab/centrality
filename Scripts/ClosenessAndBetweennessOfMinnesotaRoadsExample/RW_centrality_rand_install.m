@@ -39,8 +39,8 @@ X = sparse(n*steps + 1, n);
 for i=0:steps-1
     X(i*n+1:(i+1)*n, :) = I;
 end
-parfor source = 1:n
-    source
+for source = 1:n
+    %source
     for terminal= source+1:n-1
         %if source ~= terminal
             term_nodes = sparse(steps,1);
