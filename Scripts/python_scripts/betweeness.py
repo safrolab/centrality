@@ -252,79 +252,165 @@ def shortest_path_subgraph(G, s):
         if terminal_nodes[node]:
             print(node, nx.shortest_path_length(G, s, node))
     
-def draw_graph(graph, mybetweenness, standard_betweenness, cordfile):
+def draw_graph(graph, install_nodes, mybetweenness, standard_betweenness, cordfile):
+    install_graph = nx.Graph()
+    for node in install_nodes:
+        install_graph.add_node(node)
+        
+    left  = 0.12  # the left side of the subplots of the figure
+    right = 0.9   # the right side of the subplots of the figure
+    bottom = 0.1   # the bottom of the subplots of the figure
+    top = 0.9      # the top of the subplots of the figure
+    wspace = 0.2   # the amount of width reserved for blank space between subplots,
+                   # expressed as a fraction of the average axis width
+    hspace = 0.2   # the amount of height reserved for white space between subplots,
+                   # expressed as a fraction of the average axis heigh
+    if cordfile:
+        m_betweenness = []
+        s_betweenness = []
+        for node in sorted(graph.nodes()):
+            m_betweenness.append(mybetweenness[node])
+            s_betweenness.append(standard_betweenness[node])
+        p1 = np.percentile(m_betweenness, 50)
+        p2 = np.percentile(m_betweenness, 75)
+        p3 = np.percentile(m_betweenness, 90)
+        p4 = np.percentile(m_betweenness, 95)
+        node_sizes = []
+        for node in sorted(graph.nodes()):
+            cen  = int(mybetweenness[node])
+            if cen < p1:
+                node_sizes.append(10)
+            elif cen < p2:
+                node_sizes.append(20)
+            elif cen < p3:
+                node_sizes.append(60)
+            elif cen < p4:
+                node_sizes.append(150)
+            else:
+                node_sizes.append(180)
+                #node_sizes.append(int(mybetweenness[node])/2000)
+        #pos = graphviz_layout(graph, prog='sfdp')
+        x, y = get_coordinates(cordfile)   
+        pos = {}
+        for node in graph.nodes():
+            pos[node] = [x[node-1], y[node-1]]
 
-    m_betweenness = []
-    s_betweenness = []
-    for node in sorted(graph.nodes()):
-        m_betweenness.append(mybetweenness[node])
-        s_betweenness.append(standard_betweenness[node])
-    p1 = np.percentile(m_betweenness, 50)
-    p2 = np.percentile(m_betweenness, 75)
-    p3 = np.percentile(m_betweenness, 90)
-    p4 = np.percentile(m_betweenness, 95)
-    node_sizes = []
-    for node in sorted(graph.nodes()):
-        cen  = int(mybetweenness[node])
-        if cen < p1:
-            node_sizes.append(10)
-        elif cen < p2:
-            node_sizes.append(20)
-        elif cen < p3:
-            node_sizes.append(60)
-        elif cen < p4:
-            node_sizes.append(150)
-        else:
-            node_sizes.append(180)
-            #node_sizes.append(int(mybetweenness[node])/2000)
-    #pos = graphviz_layout(graph, prog='sfdp')
-    x, y = get_coordinates(cordfile)   
-    pos = {}
-    for node in graph.nodes():
-        pos[node] = [x[node-1], y[node-1]]
+         
+        #nx.draw(graph, pos, node_size = node_sizes, node_color=m_betweenness)
+        nodes = nx.draw_networkx_nodes(G,pos,node_color=m_betweenness, node_size =node_sizes,
+                    cmap=plt.cm.autumn_r, linewidths=0, with_labels=False)
+        edges = nx.draw_networkx_edges(G,pos,edge_color='gray',width=1)
+        plt.colorbar(nodes)
+        plt.axis('off') 
+        
+        
+        plt.savefig("_delete_mybetweenness.eps") 
+        plt.show()
+        
+        p1 = np.percentile(s_betweenness, 20)
+        p2 = np.percentile(s_betweenness, 40)
+        p3 = np.percentile(s_betweenness, 60)
+        p4 = np.percentile(s_betweenness, 80)
+        node_sizes = []
+        for node in sorted(graph.nodes()):
+            cen  = int(standard_betweenness[node])
+            if cen < p1:
+                node_sizes.append(10)
+            elif cen < p2:
+                node_sizes.append(20)
+            elif cen < p3:
+                node_sizes.append(60)
+            elif cen < p4:
+                node_sizes.append(150)
+            else:
+                node_sizes.append(180)
+      
+        plt.clf()
+        
+        #nx.draw(graph, pos, node_size =80, node_color=s_betweenness
+        #            ,linewidths=0, cmap=plt.cm.autumn_r, edge_color='grey', with_labels=False)
+        
+        nodes = nx.draw_networkx_nodes(G,pos,node_color=s_betweenness, node_size =node_sizes,
+                    cmap=plt.cm.autumn_r, linewidths=0, with_labels=False)
+        edges = nx.draw_networkx_edges(G,pos,edge_color='gray',width=1)
+        plt.colorbar(nodes)
+        plt.axis('off')                         
+                                   
+        plt.savefig("standard_betweenness.eps") 
+        #plt.show()
+    else:
+        m_betweenness = []
+        s_betweenness = []
+        for node in sorted(graph.nodes()):
+            m_betweenness.append(mybetweenness[node])
+            s_betweenness.append(standard_betweenness[node])
+        p1 = np.percentile(m_betweenness, 50)
+        p2 = np.percentile(m_betweenness, 75)
+        p3 = np.percentile(m_betweenness, 90)
+        p4 = np.percentile(m_betweenness, 95)
+        node_sizes = []
+        for node in sorted(graph.nodes()):
+            cen  = int(mybetweenness[node])
+            if cen < p1:
+                node_sizes.append(60)
+            elif cen < p2:
+                node_sizes.append(80)
+            elif cen < p3:
+                node_sizes.append(100)
+            elif cen < p4:
+                node_sizes.append(120)
+            else:
+                node_sizes.append(140)
+        pos = graphviz_layout(graph, prog='sfdp')
+        pos2 = {}
+        for node in install_nodes:
+            pos2[node] = pos[node]
+        btn2 = [mybetweenness[node] for node in install_graph.nodes()]
 
-    #nx.draw(graph, pos, node_size = node_sizes, node_color=m_betweenness)
-    nodes = nx.draw_networkx_nodes(G,pos,node_color=m_betweenness, node_size =node_sizes,
-                cmap=plt.cm.autumn_r, linewidths=0, with_labels=False)
-    edges = nx.draw_networkx_edges(G,pos,edge_color='gray',width=1)
-    plt.colorbar(nodes)
-    plt.axis('off') 
-    
-    
-    plt.savefig("_delete_mybetweenness.eps") 
-    plt.show()
-    
-    p1 = np.percentile(s_betweenness, 20)
-    p2 = np.percentile(s_betweenness, 40)
-    p3 = np.percentile(s_betweenness, 60)
-    p4 = np.percentile(s_betweenness, 80)
-    node_sizes = []
-    for node in sorted(graph.nodes()):
-        cen  = int(standard_betweenness[node])
-        if cen < p1:
-            node_sizes.append(10)
-        elif cen < p2:
-            node_sizes.append(20)
-        elif cen < p3:
-            node_sizes.append(60)
-        elif cen < p4:
-            node_sizes.append(150)
-        else:
-            node_sizes.append(180)
-  
-    plt.clf()
-    
-    #nx.draw(graph, pos, node_size =80, node_color=s_betweenness
-    #            ,linewidths=0, cmap=plt.cm.autumn_r, edge_color='grey', with_labels=False)
-    
-    nodes = nx.draw_networkx_nodes(G,pos,node_color=s_betweenness, node_size =node_sizes,
-                cmap=plt.cm.autumn_r, linewidths=0, with_labels=False)
-    edges = nx.draw_networkx_edges(G,pos,edge_color='gray',width=1)
-    plt.colorbar(nodes)
-    plt.axis('off')                         
-                               
-    plt.savefig("standard_betweenness.eps") 
-    #plt.show()
+        #plt.figure(figsize=(25,18))
+        nodes = nx.draw_networkx_nodes(G,pos,node_color=m_betweenness, node_size =100,
+                    cmap=plt.cm.Blues, linewidths=0.2)
+        nodes2 = nx.draw_networkx_nodes(install_graph, pos2,node_color=btn2, node_size =100,
+                    cmap=plt.cm.Blues, vmin=min(m_betweenness), vmax=max(m_betweenness),  linewidths=2)
+
+        nodes2.set_edgecolor('r')
+        #labels = nx.draw_networkx_labels(G,pos)
+        edges = nx.draw_networkx_edges(G,pos,edge_color='gray',width=0.5)
+        plt.colorbar(nodes)
+        plt.axis('off') 
+        
+
+        plt.savefig("mybetweenness8.eps") 
+        #plt.show()
+        
+        p1 = np.percentile(s_betweenness, 20)
+        p2 = np.percentile(s_betweenness, 40)
+        p3 = np.percentile(s_betweenness, 60)
+        p4 = np.percentile(s_betweenness, 80)
+        node_sizes = []
+        for node in sorted(graph.nodes()):
+            cen  = int(standard_betweenness[node])
+            if cen < p1:
+                node_sizes.append(60)
+            elif cen < p2:
+                node_sizes.append(80)
+            elif cen < p3:
+                node_sizes.append(100)
+            elif cen < p4:
+                node_sizes.append(120)
+            else:
+                node_sizes.append(140)
+      
+        plt.clf()
+        
+        nodes = nx.draw_networkx_nodes(G,pos,node_color=s_betweenness, node_size =100,
+                    cmap=plt.cm.Blues, linewidths=0.2)
+        edges = nx.draw_networkx_edges(G,pos,edge_color='gray',width=1)
+        plt.colorbar(nodes)
+        plt.axis('off')                         
+                                   
+        plt.savefig("standard_betweenness.eps") 
+        #plt.show()
 
 def draw_debug_graph(graphfile, cordfile):
     #G = nx.read_edgelist(graphfile, nodetype=int)
@@ -433,17 +519,38 @@ def debug_graphs():
     #plt.show()
     return G
 
-if __name__ == '__main__':  
-    graphfile = '/home/hayato/Research/centrality/Scripts/data/minnesota.mtx'
-    cordfile = '/home/hayato/Research/centrality/Scripts/data/minnesota_coord.mtx'
-    
 
-    G = nx.read_edgelist(graphfile, nodetype=int)
+
+def test_cen_values():
+    myfile = open('minnesota_20_vs_standard.txt')
+    
+    mycen = []
+    s_cen = []
+    for line in myfile:
+        line = line.split()
+        node = line[0]
+        mycen.append(float(line[1]))
+        s_cen.append(float(line[2]))
+    m_norm = [float(i)/max(mycen) for i in mycen]
+    s_norm = [float(i)/max(s_cen) for i in s_cen]
+    plt.histfit(m_norm, bins=100)
+    plt.show()
+    #plt.plot(m_norm, s_norm, 'o')
+    #plt.show()
+if __name__ == '__main__':  
+    graphfile = '/home/hushiji/Research/centrality/Scripts/data/minnesota.mtx'
+    cordfile = '/home/hushiji/Research/centrality/Scripts/data/minnesota_coord.mtx'
+    
+    
+    #test_cen_values()
+
+    #G = nx.read_edgelist(graphfile, nodetype=int)
     #G = nx.karate_club_graph()
     #G = nx.grid_2d_graph(5,5)
-    #G = debug_graphs()
+    G = debug_graphs()
+    cordfile = None
     #G = nx.convert_node_labels_to_integers(G)
-    steps = 20
+    steps = 5
     G_n_soc_nodes = []
     install_units = {}
     for node in G.nodes():
@@ -454,13 +561,23 @@ if __name__ == '__main__':
     
     num_install = int(0.1*nx.number_of_nodes(G))
     install_nodes = random.sample(G.nodes(), num_install)
-    install_nodes = []
+    install_nodes = [4, 33, 7,36]
+    #install_nodes = [26]
+    #install_nodes = [45,16]
+    #install_nodes = [45,16,26]
+    #install_nodes = [24,53]
+    #install_nodes = [24,53, 44, 32,31, 47,3, 18, 15, 2]
+    #install_nodes = [ 44, 32,31, 47,3, 18, 15, 2]
+    #install_nodes = [33, 36, 46, 43, 7,14, 4, 17]
+
     for node in install_nodes:
         install_units[node] = True
     mybetweenness = betweenness_centrality(G, G_n_soc_nodes, steps, install_units)
     #btn = sorted([(mybetweenness[node], node) for node in mybetweenness], reverse=True)
     #for _, node in btn:
     #    print node, mybetweenness[node]
+
     standard_betweenness = nx.betweenness_centrality(G, normalized=False, endpoints=True)
-    draw_graph(G, mybetweenness, standard_betweenness, cordfile)
+    
+    draw_graph(G, install_nodes, mybetweenness, standard_betweenness, cordfile)
    
