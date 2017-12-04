@@ -4,7 +4,7 @@
 %load('HB/lap_25')
 %load('HB/saylr1')
 %load('grid10x10.mat')
-load('twitter.mat')
+%load('twitter.mat')
 %load('facebook2.mat')
 %load('star_path_star2.mat')
 %load('HB/1138_bus')
