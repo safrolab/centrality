@@ -278,7 +278,7 @@ def draw_graph(graph, install_nodes, mybetweenness, standard_betweenness, cordfi
          
         #nx.draw(graph, pos, node_size = node_sizes, node_color=m_betweenness)
         nodes = nx.draw_networkx_nodes(G,pos,node_color=m_betweenness, node_size =node_sizes,
-                    cmap=plt.cm.Blues, linewidths=0.1, with_labels=False)
+                    cmap=plt.cm.Blues, linewidths=0, with_labels=False)
         pos2 = {}
         for node in install_nodes:
             pos2[node] = pos[node]
