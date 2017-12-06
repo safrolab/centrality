@@ -1,5 +1,8 @@
+A = Problem.A;
+[~, n] = size(A);
 out = zeros(n,1);
 for i=1:10000
+    i
     [soc_katz, katz, labelled_nodes] = SOC_Katz(A, 3, 0.1);
     out = out + soc_katz;
     %install_marker = zeros(n,1);
@@ -12,5 +15,5 @@ for i=1:10000
 
 end
 out1 = out/norm(out);
-katz1 = katz/norm(katz);
+%katz1 = katz/norm(katz);
 scatter(out1, katz1)

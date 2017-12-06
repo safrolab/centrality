@@ -1,0 +1,14 @@
+function[exp_coverage] = infection_cascade_mod(G, init_active,p)
+n = G.numnodes;
+active_nodes = zeros(n,1);
+active_nodes(init_active) = 1;
+[m, ~] = size(init_active);
+newly_active = [init_active, zeros(1, n-m)];
+new_size = m;
+indx = 1; 
+num = 1;
+while num > 0
+    [newly_active, num] = ICM_time_step(G,active_nodes,newly_active,new_size, p,n);
+end
+exp_coverage = nnz(active_nodes);
+end

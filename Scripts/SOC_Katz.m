@@ -34,10 +34,11 @@ for i=1:num_labelled_nodes
    indx = labelled_nodes(i);
    init_cen(indx) = 1;
 end
-W1  = (I- a1*A)\init_cen;
+%W1  = (I- a1*A)\init_cen;
 W2 = Y'*((speye(n*steps) - a2*B)\(X*ones(n,1)));
 %W1 = W1/norm(W1);
 %W2 = W2/norm(W2);
 soc_katz = W2;
-katz = W1;
+%katz = W1;
+katz = -1;
 end
