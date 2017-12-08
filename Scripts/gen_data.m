@@ -1,7 +1,8 @@
 A = Problem.A;
 [~, n] = size(A);
 out = zeros(n,1);
-parfor i=1:10000
+parfor i=1:1000
+    i
     [soc_katz, katz, labelled_nodes] = SOC_Katz(A, 3, 0.01);
     out = out + soc_katz;
     %install_marker = zeros(n,1);

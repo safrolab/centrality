@@ -18,6 +18,6 @@ h1 = histfit(Test1, 30);
 set(h1(2),'color','r')
 h2 = histfit(Test2, 30);
 set(h2(2),'color','b')
-delete(h1(1));
-delete(h2(1));
+%delete(h1(1));
+%delete(h2(1));
 hold off

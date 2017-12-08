@@ -47,11 +47,12 @@ title('Closeness Centrality Scores - Weighted')
 wbc = centrality(G,'betweenness');
 n = numnodes(G);
 p.NodeCData = 2*wbc./((n-2)*(n-1));
+wbc = 2*wbc./((n-2)*(n-1));
 colormap(flip(autumn,1));
 title('Betweenness Centrality Scores - Unweighted')
 %% 
 % Random Walk Centrality: Hayato
 %%
-%wsc = RW_centrality_rand_install(G.adjacency,3,n);
+wsc = RW_centrality_rand_install(G.adjacency,2,n);
 p.NodeCData = wsc;
 title('Short Random Walk Centrality Scores - Unweighted')
