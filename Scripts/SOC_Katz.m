@@ -26,9 +26,11 @@ for i=0:steps-1
     X(i*n+1:(i+1)*n, :) = I;
 end
 Y(1:n,:) = I;
+%a1 = 1/abs(eigs(A,1)) - 0.01;
+%a2 = 1/abs(eigs(B,1)) - 0.01;
 a1 = 0.8*1/abs(eigs(A,1));
 %a1 = 0.8*1/4.4470;
-a2 = 0.95*1/abs(eigs(B,1));
+a2 = 0.99*1/abs(eigs(B,1));
 a2 = max(a1,a2);
 %a2 = 0.8;
 init_cen = ones(n,1);
@@ -39,6 +41,6 @@ end
 %W1  = (I- a1*A)\init_cen;
 W2 = Y'*((speye(n*steps) - a2*B)\(X*ones(n,1)));
 %W1 = W1/norm(W1);
-%W2 = W2/norm(W2);
+W2 = W2/norm(W2);
 soc_katz = W2;
 end

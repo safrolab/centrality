@@ -1,0 +1,1 @@
+#install 	 r_soc 	 r_katz 	 r_deg 

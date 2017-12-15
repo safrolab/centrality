@@ -1,0 +1,1 @@
+#install  p_soc p_katz  p_deg 

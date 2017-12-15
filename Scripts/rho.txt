@@ -1,0 +1,2 @@
+#install 	 r_soc 	 r_katz 	 r_deg 
+1 -0.1141 -0.0089 0.0037

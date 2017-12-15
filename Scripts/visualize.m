@@ -5,10 +5,11 @@
 %load('HB/saylr1')
 %load('grid10x10.mat')
 %load('twitter.mat')
+load('ca-HepTh.mat')
 %load('facebook2.mat')
 %load('star_path_star2.mat')
 %load('HB/1138_bus')
-%A = Problem.A;
+A = Problem.A;
 %G = graph(A);
 %A = G.adjacency;
 %plot(G)
@@ -17,7 +18,8 @@ A(A > 0) = 1;
 
 %% parameters
 steps= 3;
-num_labelled_nodes = ceil(0.1*n);
+num_labelled_nodes = ceil(0.01*n);
+%num_labelled_nodes = 400;
 labelled_nodes = randperm(n,num_labelled_nodes);
 %labelled_nodes = [1 34];
 I = speye(n);
