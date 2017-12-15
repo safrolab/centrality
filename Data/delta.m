@@ -1,7 +1,7 @@
 function[exp_coverage] = delta(G, init_active,p, niter)
-out = 0;
+out = zeros(niter,1);
 for i = 1:niter
-    out = out + infection_cascade_mod(G, init_active,p);
+    out(i) = out(i) + infection_cascade_mod(G, init_active,p);
 end
-exp_coverage = out/niter;
+exp_coverage = sum(out)/niter;
 end
