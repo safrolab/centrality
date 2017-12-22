@@ -13,7 +13,7 @@ which centrality is best used to indentify top particle spread
 4 b. Plot sorted r values for install_percentage
 5. Repeat 2 for install_percentage = 0.01, 0.05, 0.1, 0.2, 0.4
 %}
-myCluster=parcluster('local');
+%myCluster=parcluster('local');
 %parpool(myCluster,myCluster.NumWorkers);
 A = G.adjacency;
 n = G.numnodes;
@@ -22,11 +22,11 @@ n = G.numnodes;
 %A = P*A*P';
 %G = digraph(A);
 %n = G.numnodes;
-katz = Katz(A);
+
 degree = G.outdegree;
 
 %
-n_trials = 1;
+n_trials = 30;
 install_choice = [0.05, 0.1, 0.2, 0.4];
 fileID = fopen('rho.txt','w');
 com = '#install \t r_soc \t r_katz \t r_deg \n';
@@ -40,11 +40,12 @@ fileID = fopen('spearman_rho.txt','w');
 com = '#install prob r_soc r_katz r_deg \n';
 fprintf(fileID,com);
 fclose(fileID);
-probability = [0.01, 0.02, 0.04, 0.08, 0.1, 0.2, 0.4];
+probability = [0.04, 0.08, 0.1, 0.2];
 
 rand_seed = randi(10000);
 rng(rand_seed)
 for p=probability
+    katz = Katz(A,p);
     for x = 1:4
         install_percentage= install_choice(x);
         for j =1:n_trials
@@ -63,7 +64,7 @@ for p=probability
             %p =0.05;
             %p = alpha;
             base_centrality = zeros(n,1);
-            num_sample_nodes = 500;
+            num_sample_nodes = 200;
             sample_nodes = randsample(n, num_sample_nodes);
             is_susceptible = zeros(n,1);
             is_susceptible(install) = 1;
@@ -106,15 +107,15 @@ for p=probability
             spear_rho = [install_percentage, p, sp_rho_soc, sp_rho_katz, sp_rho_deg];
             pval = [install_percentage, p_soc, p_katz, p_deg];
             fileID = fopen('rho.txt','a');
-            fmt = '%5.4 %5.4f %5.4f %5.4f %5.4f\n'; 
+            fmt = '%5.2 %5.2f %5.4f %5.4f %5.4f\n'; 
             fprintf(fileID,fmt, rho);
             fclose(fileID);
             fileID = fopen('spearman_rho.txt','a');
-            fmt = '%5.4f %5.4f %5.4f %5.4f %5.4f\n'; 
+            fmt = '%5.2f %5.2f %5.4f %5.4f %5.4f\n'; 
             fprintf(fileID,fmt, spear_rho);
             fclose(fileID);
             fileID = fopen('pval.txt','a');
-            fmt = '%5.4 %5.4f %5.4f %5.4f %5.4f\n'; 
+            fmt = '%5.2 %5.2f %5.4f %5.4f %5.4f\n'; 
             fprintf(fileID,fmt, pval);
             fclose(fileID);
         end
