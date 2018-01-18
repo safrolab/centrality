@@ -65,10 +65,12 @@ def particle_time_step(graph, occupied_nodes,
     neighboring node.
     """
     
-    for node in occupied_nodes:
-        wait_list = occupied_nodes[node]
-        next_path = wait_list.pop()
-        move_to = next_path.pop()
+    for node in congested_nodes:
+        particle_queue = congested_nodes[node]
+        next_particle = particle_queue.pop()
+        neigh_node = next_particle.pop()
+        if neigh_node in congested_nodes:
+            congested_nodes[neigh_node].push(next_particle)
         
 
 
