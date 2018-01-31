@@ -275,7 +275,6 @@ def shortest_path_subgraph(G, s):
     terminal_nodes = {}
     for node in G.nodes():
         terminal_nodes[node] = False
-    
     terminal_nodes[4] = True
     print(S)
     print(P[4])
