@@ -71,7 +71,11 @@ def construct_soc_graph(graph, full_soc, install_dict):
     return soc_graph
 
 
-def get_random_feasible_walk(soc_graph, full_soc, s, t, walk_type):
+def get_random_feasible_walk(soc_graph,
+                             soc_graph_reverse,
+                             full_soc,
+                             s, t,
+                             walk_type):
     soc_s = (full_soc -1, s)
     if nx.has_path(soc_graph, soc_s, t):
         if walk_type == 'shortest':
@@ -80,12 +84,39 @@ def get_random_feasible_walk(soc_graph, full_soc, s, t, walk_type):
             soc_path = random.choice(paths)
             walk = [node for _, node in soc_path[:-1]]
             walk.reverse()
-
+        elif walk_type == 'random':
+            walk = get_random_s_t_walk(soc_graph,
+                                       soc_graph_reverse,
+                                       full_soc,
+                                       s, t)
+        else:
+            raise ValueError("walk_type must be 'shortest' or 'random'")
     else:
         #print 'no feasible path'
         walk = []
     return walk
 
+def get_random_s_t_walk(soc_graph, soc_graph_reverse, full_soc, s, t):
+    """ Return random feasible walk from s to t.
+    """
+    finite_dist = nx.shortest_path_length(soc_graph_reverse, t)
+    soc_s = (full_soc -1, s)
+    soc_walk = [soc_s]
+    dist_to_target = finite_dist[soc_s]
+    current_node = soc_s
+    #dist = [finite_dist[soc_s]]
+    while dist_to_target > 1:
+        neigh = []
+        for node in soc_graph.successors_iter(current_node):
+            if node in finite_dist:
+                neigh.append(node)
+        current_node = random.choice(neigh)
+        #dist.append(dist_to_target)
+        soc_walk.append(current_node)
+        dist_to_target = finite_dist[current_node]
+    #print dist
+    walk = [node for _, node in soc_walk]
+    return walk
 
 def particle_time_step(graph, occupied_streets, Routes, max_counter):
     """
@@ -125,7 +156,11 @@ def particle_birth(soc_graph, graph,occupied_streets, Routes, max_counter,
     target = random.sample(graph.nodes(), num_new_routes)   
     max_route_id = Routes['max_id'] 
     for s, t in zip(origin, target):
-        walk = get_random_feasible_walk(soc_graph, full_soc, s, t, 'shortest')
+        walk = get_random_feasible_walk(soc_graph,
+                                        soc_graph_reverse,
+                                        full_soc,
+                                        s, t,
+                                        'shortest')
         if len(walk) > 0:
             max_route_id += 1
             Routes['max_id'] = max_route_id
@@ -278,10 +313,40 @@ def debug():
     #    print(i, node, btn[node])
     #walk = get_random_feasible_walk(soc_graph, full_soc, s, t, 'shortest')
     #print walk, install_nodes
-         
+
+
+def debug2(graph):
+    print 'number of nodes', nx.number_of_nodes(graph)
+    full_soc = 3
+    num_install = 4
+    install_nodes = random.sample(graph.nodes(), num_install)
+    #print 'install nodes', install_nodes
+    install_dict = dict.fromkeys(graph.nodes(), False)
+    for node in install_nodes:
+        install_dict[node] = True
+    soc_graph = construct_soc_graph(graph, full_soc, install_dict)
+    soc_graph_reverse = soc_graph.reverse()
+    s = random.choice(graph.nodes())
+    t = random.choice(graph.nodes())
+    soc_s = (full_soc -1, s)
+    total_len = 0
+    if nx.has_path(soc_graph, soc_s, t):
+        for _ in range(1):
+            walk = get_random_s_t_walk(soc_graph, soc_graph_reverse, full_soc, s, t)
+            total_len += len(walk)
+            #print s, t, 'graph distance:', nx.shortest_path_length(graph, s, t)
+            #print 'random walk distance:', len(walk)
+            print walk
+        print 'average', total_len/1.0
+        print 'actual', nx.shortest_path_length(graph, s, t)
+    else:
+        print "no feasible walk", s, t, nx.shortest_path_length(graph, s, t)
+    
 if __name__ == '__main__':
     graph = nx.davis_southern_women_graph()
+    graph = nx.DiGraph(graph)
     #graphfile = '/home/hushiji/Research/centrality/Scripts/data/minnesota.mtx'
     #graph = nx.read_edgelist(graphfile, nodetype=int)
     graph = nx.convert_node_labels_to_integers(graph, first_label=0)
-    experiment(graph)
+    #experiment(graph)
+    debug2(graph)

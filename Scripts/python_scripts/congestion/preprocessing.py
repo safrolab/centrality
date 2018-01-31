@@ -28,12 +28,19 @@ def install_nodes2file(graphname, install_nodes, install_ratio, scenario_no):
     myfile.close() 
 
 def install_nodes2file_source(graphname, install_nodes,
-                              install_ratio, scenario_no):
+                              install_ratio, scenario_no, walktype):
     """Write install_nodes to file. """
     install_no = str(int(install_ratio*100))
-    outfile = 'pre_data/' + graphname \
-              + '/fixedsource/install' + install_no \
-              + '_' + str(scenario_no) + '.txt'
+    if walktype == 'shortest':
+        outfile = 'pre_data/' + graphname \
+                  + '/fixedsource/install' + install_no \
+                  + '_' + str(scenario_no) + '.txt'
+    elif walktype == 'random':
+        outfile = 'pre_data/' + graphname \
+                  + '/randomwalks/install' + install_no \
+                  + '_' + str(scenario_no) + '.txt'
+    else:
+        raise ValueError('walktype should be random or shortest')
     myfile = open(outfile, 'w')
     out = "".join([str(node)+'\n' for node in install_nodes])
     myfile.write(out)
@@ -61,7 +68,7 @@ def append_walk2file(walkfile, walk):
     myfile.close()
 
 
-def write_files_fixed_source(graph, graphname):
+def write_files_fixed_source(graph, graphname, walktype):
     """
     Output:
         graphname/fixedsource/shortWalks1_1.txt
@@ -92,7 +99,8 @@ def write_files_fixed_source(graph, graphname):
             install_nodes2file_source(graphname,
                                       install_nodes,
                                       install_ratio,
-                                      scenario_no)
+                                      scenario_no,
+                                      walktype)
             source_nodes2file(graphname,
                               source_nodes,
                               install_ratio,
@@ -100,18 +108,95 @@ def write_files_fixed_source(graph, graphname):
             soc_graph = congetion.construct_soc_graph(graph,
                                                       full_soc,
                                                       install_dict)
+            soc_graph_reverse = soc_graph.reverse()
             for _ in range(num_walks):
                 s = random.choice(source_nodes)
                 t = random.choice(graph.nodes())
                 if s != t:
                     walk = congetion.get_random_feasible_walk(soc_graph,
+                                                              soc_graph_reverse,
                                                               full_soc,
                                                               s, t,
                                                               'shortest')
                     if len(walk) > 0:
                         append_walk2file(walkfile_adr, walk)
-            
-'''        
+
+
+def write_s_t_random_walks(graph, graphname, walktype):
+    """
+    Output:
+        graphname/randomwalks/randomWalks1_1.txt
+        graphname/randomwalks/install1_1.txt  # contains WCU install locations
+        graphname/randomwalks/source_target1_1.txt # contains source nodes
+    """
+    full_soc = 3
+    num_walks = 200  # number random walks per (s, t) pair
+    num_scenarios = 1
+    num_st_pairs = 10  # number of (s, t) pairs for each scenario
+    #I_Ratios = [0.01, 0.05, 0.1, 0.2, 0.4, 0.8]
+    I_Ratios = [0.2]
+    candidate_source_nodes = nonleaf_nodes(graph)
+    used_pairs = {}
+    for install_ratio in I_Ratios:
+        print install_ratio
+        num_install = int(math.ceil(install_ratio*nx.number_of_nodes(graph)))
+        for scenario_no in range(num_scenarios):
+            install_no = str(int(install_ratio*100))
+            walkfile_adr = 'pre_data/' + graphname \
+                           + '/randomwalks/randomWalks' + install_no \
+                           + '_' + str(scenario_no) + '.txt'
+            walkfile = open(walkfile_adr, 'w')
+            install_nodes = random.sample(graph.nodes(), num_install)
+            install_dict = dict.fromkeys(graph.nodes(), False)
+            for node in install_nodes:
+                install_dict[node] = True
+            install_nodes2file_source(graphname,
+                                      install_nodes,
+                                      install_ratio,
+                                      scenario_no,
+                                      walktype)
+            soc_graph = congetion.construct_soc_graph(graph,
+                                                      full_soc,
+                                                      install_dict)
+            soc_graph_reverse = soc_graph.reverse()
+            for _ in range(num_st_pairs):
+                s = random.choice(candidate_source_nodes)
+                t = random.choice(graph.nodes())
+                print s,t
+                if s != t:
+                    if (s, t) not in used_pairs:
+                        soc_s = (full_soc - 1, s)
+                        if nx.has_path(soc_graph, soc_s, t):  #  feasible walk exists
+                            used_pairs[(s,t)] = 1
+                            for _ran_walk in range(num_walks):
+                                walk = congetion.get_random_feasible_walk(
+                                     soc_graph,
+                                     soc_graph_reverse,
+                                     full_soc,
+                                     s, t,
+                                     walktype)
+
+                                append_walk2file(walkfile_adr, walk)
+                        else:
+                            print 'no feasible path', s, t
+            st_pairs2file(graphname, used_pairs, install_ratio, scenario_no)
+
+
+def st_pairs2file(graphname, used_pairs, install_ratio, scenario_no):
+    """Write install_nodes to file. """
+    install_no = str(int(install_ratio*100))
+    outfile = 'pre_data/' + graphname \
+              + '/randomwalks/source_target' + install_no \
+              + '_' + str(scenario_no) + '.txt'
+    myfile = open(outfile, 'w')
+    out = "".join([str(s) + ' ' + str(t) +'\n' for s, t in used_pairs])
+    myfile.write(out)
+    myfile.close() 
+
+
+
+
+'''
 def write_files(graph, graphname):
     """
     Output:
@@ -166,12 +251,13 @@ if __name__ == '__main__':
     #graphfile = '../../data/p2p-Gnutella08.txt'
     #graphname = 'p2p-Gnutella08'
     graphname = 'example'
+    walktype = 'random'
     print graphname
     #graph = nx.read_edgelist(graphfile, nodetype=int, create_using=nx.DiGraph())
     graph = max(nx.weakly_connected_component_subgraphs(graph), key=len)
     graph = nx.convert_node_labels_to_integers(graph, first_label=0)
     #write_files(graph, graphname)
-    write_files_fixed_source(graph, graphname)
-
+    #write_files_fixed_source(graph, graphname, walktype)
+    write_s_t_random_walks(graph, graphname, walktype)
     
     
