@@ -131,9 +131,9 @@ def write_s_t_random_walks(graph, graphname, walktype):
         graphname/randomwalks/source_target1_1.txt # contains source nodes
     """
     full_soc = 3
-    num_walks = 2000  # number random walks per (s, t) pair
+    num_walks = 20000  # number random walks per (s, t) pair
     num_scenarios = 1
-    num_st_pairs = 20  # number of (s, t) pairs for each scenario
+    num_st_pairs = 1  # number of (s, t) pairs for each scenario
     #I_Ratios = [0.01, 0.05, 0.1, 0.2, 0.4, 0.8]
     I_Ratios = [0.2]
     candidate_source_nodes = nonleaf_nodes(graph)

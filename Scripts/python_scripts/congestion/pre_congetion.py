@@ -327,8 +327,10 @@ def get_nonleaf_nodes(graph):
     return [node for node in graph.nodes() if graph.out_degree(node) > 0]
 
 def get_source_from_st_pair(stfile):
-    source = np.genfromtxt(stfile, dtype = 'int')[:,0]
-    return source.tolist()
+    print stfile
+    #source = np.genfromtxt(stfile, dtype = 'int')[:,0]
+    source = np.genfromtxt(stfile, dtype = 'int')
+    return [source.tolist()[0]]
 
 def experiment2(graph):
     """ Random Feasible Walks.
@@ -357,7 +359,7 @@ def experiment2(graph):
                 file_no = [int(i) for i in file_no.replace('_', ' ').split()]
                 iratio, scenario = file_no
                 file_nos.append((iratio, scenario))
-    birth_rate = 0.5
+    birth_rate = 1
     full_soc = 3
     birth_type = 'random_source'
     #birth_type = 'walk_at_random'
