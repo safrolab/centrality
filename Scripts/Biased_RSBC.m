@@ -20,8 +20,6 @@ A(A > 0) = 1;
 [~, n] = size(A);
 
 %% parameters
-
-
 steps= 3;
 num_labelled_nodes = n;
 labelled_nodes = randperm(n,num_labelled_nodes);
@@ -60,12 +58,7 @@ B(n*steps +1, n*steps +3) = 1;
 %add edge t2 -> t3
 B(n*steps +2, n*steps +3) = 1;
 %}
-
 %term_nodes = [terminal];
-
-
-
-
 centrality_B = zeros(n*steps + 1,1);
 I_z = speye(n*steps + 1, n*steps + 1);
 
@@ -93,7 +86,6 @@ parfor source = 1:n
             for i=1:steps
                 copy_B(term_nodes(i), :) =sparse(1,n*steps  +1);
             end
-            
             %term_nodes connect to t (n*steps + 1)
             copy_B(term_nodes, n*steps + 1) =1;
             [nodes, new_s, new_t, new_B] = get_st_neighborhood(Z, copy_B,source,terminal,n, steps);
@@ -103,8 +95,6 @@ parfor source = 1:n
                 parTemp = zeros(n*steps + 1,1);
                 parTemp(nodes) = cen;
                 centrality_B = centrality_B + parTemp;
-                
-
            end
         end
    end

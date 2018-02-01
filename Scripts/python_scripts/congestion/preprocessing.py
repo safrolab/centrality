@@ -27,6 +27,7 @@ def install_nodes2file(graphname, install_nodes, install_ratio, scenario_no):
     myfile.write(out)
     myfile.close() 
 
+
 def install_nodes2file_source(graphname, install_nodes,
                               install_ratio, scenario_no, walktype):
     """Write install_nodes to file. """
@@ -130,9 +131,9 @@ def write_s_t_random_walks(graph, graphname, walktype):
         graphname/randomwalks/source_target1_1.txt # contains source nodes
     """
     full_soc = 3
-    num_walks = 200  # number random walks per (s, t) pair
+    num_walks = 2000  # number random walks per (s, t) pair
     num_scenarios = 1
-    num_st_pairs = 10  # number of (s, t) pairs for each scenario
+    num_st_pairs = 20  # number of (s, t) pairs for each scenario
     #I_Ratios = [0.01, 0.05, 0.1, 0.2, 0.4, 0.8]
     I_Ratios = [0.2]
     candidate_source_nodes = nonleaf_nodes(graph)
@@ -226,7 +227,9 @@ def write_files(graph, graphname):
                                install_nodes,
                                install_ratio,
                                scenario_no)
-            soc_graph = congetion.construct_soc_graph(graph, full_soc, install_dict)
+            soc_graph = congetion.construct_soc_graph(graph,
+                                                      full_soc,
+                                                      install_dict)
             for _ in range(num_walks):
                 s = random.choice(graph.nodes())
                 t = random.choice(graph.nodes())
@@ -259,5 +262,6 @@ if __name__ == '__main__':
     #write_files(graph, graphname)
     #write_files_fixed_source(graph, graphname, walktype)
     write_s_t_random_walks(graph, graphname, walktype)
+
     
     

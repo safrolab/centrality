@@ -235,7 +235,7 @@ def rank_nonleafnodes(nonleaf_nodes, centrality_dict):
     return ranking
 
     
-def experiment(graph):
+def experiment1(graph):
     """
     Read the following from directory 'pre_data/p2p-Gnutella08/fixedsource'
         1. source files: sourceX_Y.txt
@@ -326,12 +326,73 @@ def get_nonleaf_nodes(graph):
     """ Returns nodes with out_degree > 0. """
     return [node for node in graph.nodes() if graph.out_degree(node) > 0]
 
-  
+def get_source_from_st_pair(stfile):
+    source = np.genfromtxt(stfile, dtype = 'int')[:,0]
+    return source.tolist()
+
+def experiment2(graph):
+    """ Random Feasible Walks.
+    Read the following from directory 'pre_data/p2p-Gnutella08/fixedsource'
+        1. source files: sourceX_Y.txt
+        2. walk files: shortWalksX_Y.txt
+        3. install location files: installX_Y.txt
+    
+    Return:
+            congestionX_Y_Z.txt
+            X -- install_ratio
+            Y -- scenario
+            Z -- birth_rate * 100
+    """
+    if not graph.is_directed(): 
+        raise ValueError("Graph must be DiGraph")
+    nonleaf_nodes = get_nonleaf_nodes(graph)
+    data_dir = 'pre_data/example/randomwalks/'
+    #data_dir = 'pre_data/p2p-Gnutella08/randomwalks/'
+    outdir = 'post_data/example/randomwalks/'
+    file_nos = []
+    for myfile in os.listdir(data_dir):
+        if myfile.endswith(".txt"):
+            if myfile[:len('randomWalks')] == 'randomWalks':
+                file_no = myfile[len('randomWalks'):-4]
+                file_no = [int(i) for i in file_no.replace('_', ' ').split()]
+                iratio, scenario = file_no
+                file_nos.append((iratio, scenario))
+    birth_rate = 0.5
+    full_soc = 3
+    birth_type = 'random_source'
+    #birth_type = 'walk_at_random'
+    for pair in file_nos:
+        ratio, scene = pair
+        filetag = str(ratio) + '_' + str(scene) + '.txt'
+        filetag_birth = str(ratio) + '_' + str(scene) + '_'\
+                        + str(int(birth_rate*100)) + '.txt'
+        walkfile = (data_dir + 'randomWalks' + filetag)
+        installfile = (data_dir + 'install' + filetag)
+        sourcefile = (data_dir + 'source_target' + filetag)
+        feasible_walks, feasible_walks_source = read_feasible_walks(walkfile)
+        install_dict, install_nodes = get_install_dict(graph, installfile)
+        source_nodes = get_source_from_st_pair(sourcefile)
+        num_new_routes = int(math.ceil(birth_rate* len(source_nodes)))
+        max_counter, average_counter = particle_simulation_fixed_source(
+                                     graph,
+                                     num_new_routes,
+                                     feasible_walks,
+                                     feasible_walks_source,
+                                     birth_type)
+        myfile = open(outdir + 'congetion' + filetag_birth, 'w' )
+        for node in sorted(graph.nodes()):
+            myfile.write(str(average_counter[node]) + '\n')
+        myfile.close()
+        
+
+
+
 if __name__ == '__main__':
-    #graph = nx.davis_southern_women_graph()
-    #graph = nx.DiGraph(graph)
-    graphfile = '../../data/p2p-Gnutella08.txt'
-    graph = nx.read_edgelist(graphfile, nodetype=int, create_using=nx.DiGraph())
+    graph = nx.davis_southern_women_graph()
+    graph = nx.DiGraph(graph)
+    #graphfile = '../../data/p2p-Gnutella08.txt'
+    #graph = nx.read_edgelist(graphfile, nodetype=int, create_using=nx.DiGraph())
     graph = max(nx.weakly_connected_component_subgraphs(graph), key=len)
     graph = nx.convert_node_labels_to_integers(graph, first_label=0)
-    experiment(graph)
+    #experiment1(graph)
+    experiment2(graph)
