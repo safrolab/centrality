@@ -36,7 +36,7 @@ def install_nodes2file_source(graphname, install_nodes,
         outfile = 'pre_data/' + graphname \
                   + '/fixedsource/install' + install_no \
                   + '_' + str(scenario_no) + '.txt'
-    elif walktype == 'random':
+    elif walktype == 'random' or walktype == 'random_path':
         outfile = 'pre_data/' + graphname \
                   + '/randomwalks/install' + install_no \
                   + '_' + str(scenario_no) + '.txt'
@@ -131,7 +131,7 @@ def write_s_t_random_walks(graph, graphname, walktype):
         graphname/randomwalks/source_target1_1.txt # contains source nodes
     """
     full_soc = 3
-    num_walks = 20000  # number random walks per (s, t) pair
+    num_walks = 200  # number random walks per (s, t) pair
     num_scenarios = 1
     num_st_pairs = 1  # number of (s, t) pairs for each scenario
     #I_Ratios = [0.01, 0.05, 0.1, 0.2, 0.4, 0.8]
@@ -148,6 +148,7 @@ def write_s_t_random_walks(graph, graphname, walktype):
                            + '_' + str(scenario_no) + '.txt'
             walkfile = open(walkfile_adr, 'w')
             install_nodes = random.sample(graph.nodes(), num_install)
+            print 'install_nodes:', install_nodes
             install_dict = dict.fromkeys(graph.nodes(), False)
             for node in install_nodes:
                 install_dict[node] = True
@@ -176,7 +177,6 @@ def write_s_t_random_walks(graph, graphname, walktype):
                                      full_soc,
                                      s, t,
                                      walktype)
-
                                 append_walk2file(walkfile_adr, walk)
                         else:
                             print 'no feasible path', s, t
@@ -254,7 +254,8 @@ if __name__ == '__main__':
     #graphfile = '../../data/p2p-Gnutella08.txt'
     #graphname = 'p2p-Gnutella08'
     graphname = 'example'
-    walktype = 'random'
+    #walktype = 'random'
+    walktype = 'random_path'
     print graphname
     #graph = nx.read_edgelist(graphfile, nodetype=int, create_using=nx.DiGraph())
     graph = max(nx.weakly_connected_component_subgraphs(graph), key=len)
@@ -263,5 +264,5 @@ if __name__ == '__main__':
     #write_files_fixed_source(graph, graphname, walktype)
     write_s_t_random_walks(graph, graphname, walktype)
 
-    
+     
     

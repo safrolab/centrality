@@ -1,4 +1,4 @@
-function[] = read_experiment_data()
+function[B] = read_experiment_data()
 %{
 data to read:
     1. graphfile
@@ -40,13 +40,15 @@ for row = 1:no_pair_files
     stfile = strcat(mydir, 'source_target', filetag);
     st_array = load(stfile);
     install_array = load(installfile);
-    [centrality] = sample_st_randomwalkBC(A, st_array,...
+    st_array = st_array + 1;  % MATLAB indexing from python
+    install_array  = install_array + 1;
+    [centrality, B] = sample_st_randomwalkBC(A, st_array,...
     install_array, full_soc);
-    katzfile = strcat(katzdir, 'katz',filetag);
-    katzfile
+    katzfile = strcat(katzdir, 'RWBC',filetag);
     fileID = fopen(katzfile, 'w');
     fprintf(fileID,'%f\n',centrality);
     fclose(fileID);
 end
-centrality
+[n, ~]= size(centrality);
+[[0:n-1]' centrality]
 end

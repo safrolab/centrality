@@ -71,6 +71,24 @@ def construct_soc_graph(graph, full_soc, install_dict):
     return soc_graph
 
 
+
+def walk2path(walk):
+  """Returns a path. Removes cycles
+  Note: for path 1 -> 2 -> 3, walk = [3, 2, 1]
+  """
+  i = 1
+  s = walk[-i]
+  idx = walk.index(s)
+  path = walk[:idx + 1]
+  while idx > 0:
+    i += 1
+    temp = path[-i:]
+    s = path[-i]
+    idx = path.index(s)
+    path = path[:idx ] + temp
+  return path
+
+
 def get_random_feasible_walk(soc_graph,
                              soc_graph_reverse,
                              full_soc,
@@ -89,6 +107,14 @@ def get_random_feasible_walk(soc_graph,
                                        soc_graph_reverse,
                                        full_soc,
                                        s, t)
+            walk.reverse()
+        elif walk_type == 'random_path':
+            walk = get_random_s_t_walk_from_soc_path(soc_graph,
+                                                     soc_graph_reverse,
+                                                     full_soc,
+                                                     s, t)
+            walk.reverse()
+            #walk = walk2path(walk)
         else:
             raise ValueError("walk_type must be 'shortest' or 'random'")
     else:
@@ -105,9 +131,10 @@ def get_random_s_t_walk(soc_graph, soc_graph_reverse, full_soc, s, t):
     dist_to_target = finite_dist[soc_s]
     current_node = soc_s
     #dist = [finite_dist[soc_s]]
+    visited = dict.fromkeys(soc_graph.nodes(), False)
     while dist_to_target > 1:
         neigh = []
-        for node in soc_graph.successors_iter(current_node):
+        for node in soc_graph.neighbors(current_node):
             if node in finite_dist:
                 neigh.append(node)
         current_node = random.choice(neigh)
@@ -116,6 +143,48 @@ def get_random_s_t_walk(soc_graph, soc_graph_reverse, full_soc, s, t):
         dist_to_target = finite_dist[current_node]
     #print dist
     walk = [node for _, node in soc_walk]
+    return walk
+
+def get_random_s_t_walk_from_soc_path(soc_graph,
+                                      soc_graph_reverse,
+                                      full_soc,
+                                      s, t):
+    """ Return random feasible walk from s to t  from a random soc path.
+    """
+    finite_dist = nx.shortest_path_length(soc_graph_reverse, t)
+    start_over = True
+    while start_over == True:
+        soc_s = (full_soc -1, s)
+        current_node = soc_s
+        soc_walk = [soc_s]
+        visited = dict.fromkeys(soc_graph.nodes(), False)
+        visited[current_node] = True
+        soc, node = current_node
+        for i in range(soc):
+            visited[(i,node)] = True
+        dist_to_target = finite_dist[soc_s]
+        while dist_to_target > 1:
+            neigh = []
+            avail = 0
+            for node in soc_graph.neighbors(current_node):
+                if node in finite_dist and not visited[node]:
+                    neigh.append(node)
+                    avail += 1
+            if avail > 0:
+                current_node = random.choice(neigh)
+                visited[current_node] = True
+                soc, node = current_node
+                for i in range(soc):
+                    visited[(i,node)] = True
+                soc_walk.append(current_node)
+                dist_to_target = finite_dist[current_node]
+                start_over = False
+            else:  # dead end
+                start_over = True
+                break
+    #print dist
+    walk = [node for _, node in soc_walk]
+    print s, soc_walk
     return walk
 
 def particle_time_step(graph, occupied_streets, Routes, max_counter):
@@ -341,7 +410,54 @@ def debug2(graph):
         print 'actual', nx.shortest_path_length(graph, s, t)
     else:
         print "no feasible walk", s, t, nx.shortest_path_length(graph, s, t)
-    
+
+def debug3(graph):
+    print '\t Debug function 3'
+    full_soc = 3
+    num_install = 4
+    install_nodes = random.sample(graph.nodes(), num_install)
+    #print 'install nodes', install_nodes
+    install_dict = dict.fromkeys(graph.nodes(), False)
+    for node in install_nodes:
+        install_dict[node] = True
+    soc_graph = construct_soc_graph(graph, full_soc, install_dict)
+
+    for soc_node in soc_graph.nodes():
+        if type(soc_node) == tuple:
+            print 'node', soc_node
+            print 'Graph neihborhood', graph.neighbors(soc_node[1])
+            neigh = sorted([node for  node in soc_graph.neighbors(soc_node)])
+            print 'soc graph neighborhood', neigh, '\n'
+        else:
+            neigh = [node for node in soc_graph.neighbors(soc_node)]
+            print 'node', soc_node
+            print 'Graph neihborhood', graph.neighbors(soc_node)
+            print 'soc graph neighborhood', sorted(neigh), '\n'
+    '''
+    for node in graph.nodes():
+        soc_node = (full_soc -3, node)
+        print 'node', node
+        if soc_node in soc_graph.nodes():
+            print 'Graph neihborhood', graph.neighbors(node)
+            neigh = sorted([neigh_node[1] for neigh_node in 
+                            soc_graph.neighbors(soc_node) if type(neigh_node) == tuple])
+            print 'soc graph neighborhood', neigh, neigh == sorted(graph.neighbors(node)),'\n'
+    '''
+
+def debug4():
+    graph = nx.cycle_graph(10)
+    full_soc = 3
+    num_install = 4
+    install_nodes = random.sample(graph.nodes(), num_install)
+    install_dict = dict.fromkeys(graph.nodes(), False)
+    for node in install_nodes:
+        install_dict[node] = True
+    soc_graph = construct_soc_graph(graph, full_soc, install_dict)
+
+    for edge in soc_graph.edges():
+        print edge
+
+
 if __name__ == '__main__':
     graph = nx.davis_southern_women_graph()
     graph = nx.DiGraph(graph)
@@ -349,4 +465,4 @@ if __name__ == '__main__':
     #graph = nx.read_edgelist(graphfile, nodetype=int)
     graph = nx.convert_node_labels_to_integers(graph, first_label=0)
     #experiment(graph)
-    debug2(graph)
+    debug3(graph)

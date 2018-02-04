@@ -2,15 +2,14 @@ function [centrality] = st_biased_random_walk_BC(A, n, s, t)
 %This function assumes the following:
 %   1) A is a sparse matrix
 %   2) Every node has finite distance to node t
-
-dist = graphshortestpath(A', t) + 1;
+% dist = graphshortestpath(A', t) + 1;
 %dist_inv = dist.^(-1);
-dist_inv = exp(-dist);
+%dist_inv = exp(-dist);
 %dist = ones(1,n);
 %dist_inv = dist;
 
-W = spdiags([dist_inv'], 0, n,n);
-A = A*W;
+%W = spdiags([dist_inv'], 0, n,n);
+%A = A*W;
 %A = A.*dist_inv; %A = A*W;
 d = A*ones(n,1);
 %d(t) = 1;
@@ -33,7 +32,7 @@ ss(s) = 1;
 ss_t = ss;
 ss_t(t) = [];
 
-%D_t_inv = D_t^(-1);
+D_t_inv = D_t^(-1);
 M_t = D_t\A_t;
 %M_t = A_t.*d_inv_t;
 I_t = speye(n-1);
@@ -72,7 +71,7 @@ D_V = spdiags([V], 0, n,n);
 flow_mat = D_V*M;
 %flow_mat = M.*V;
 G = digraph(flow_mat);
-plot(G,'EdgeLabel',G.Edges.Weight)
+%plot(G,'EdgeLabel',G.Edges.Weight)
 net_flow_mat = abs(flow_mat - flow_mat');
 centrality = 0.5*net_flow_mat*ones(n,1);
 %centrality = (s_index*TA)';
