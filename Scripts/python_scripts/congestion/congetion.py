@@ -184,8 +184,10 @@ def get_random_s_t_walk_from_soc_path(soc_graph,
                 break
     #print dist
     walk = [node for _, node in soc_walk]
-    print s, soc_walk
+    #print s, soc_walk
     return walk
+
+
 
 def particle_time_step(graph, occupied_streets, Routes, max_counter):
     """
@@ -463,6 +465,6 @@ if __name__ == '__main__':
     graph = nx.DiGraph(graph)
     #graphfile = '/home/hushiji/Research/centrality/Scripts/data/minnesota.mtx'
     #graph = nx.read_edgelist(graphfile, nodetype=int)
-    graph = nx.convert_node_labels_to_integers(graph, first_label=0)
+    graph = nx.convert_node_labels_to_integers(graph, first_label=0, ordering='sorted')
     #experiment(graph)
     debug3(graph)

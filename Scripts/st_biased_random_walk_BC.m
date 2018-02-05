@@ -70,7 +70,7 @@ V = s_index*Z;
 D_V = spdiags([V], 0, n,n);
 flow_mat = D_V*M;
 %flow_mat = M.*V;
-G = digraph(flow_mat);
+%G = digraph(flow_mat);
 %plot(G,'EdgeLabel',G.Edges.Weight)
 net_flow_mat = abs(flow_mat - flow_mat');
 centrality = 0.5*net_flow_mat*ones(n,1);

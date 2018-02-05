@@ -5,6 +5,7 @@ Return random walk BC for sample of (s, t) pairs
 %}
 A(A > 0) = 1;
 [~, n] = size(A);
+size(A)
 steps = full_soc;
 [num_pairs, ~] = size(st_array);
 [num_labelled_nodes, ~] = size(install_array);
@@ -18,7 +19,6 @@ for i=1:num_labelled_nodes
    indx = labelled_nodes(i);
    J(indx, indx) = 1;
 end
-spy(J)
 B = sparse(n*steps + 1, n*steps + 1);
 for i=0:steps-1
     B(i*n+1:(i+1)*n,1:n) = A*J;
@@ -31,8 +31,12 @@ B(1:n,n+1:2*n) = A*(I-J);
 centrality_B = zeros(n*steps + 1,1);
 I_z = speye(n*steps + 1, n*steps + 1);
 Z = I_z;  % to determine reachable nodes
-for i=1:n + 1
-    Z = Z + B^i;
+B_exp = B;
+for i=1:min(30,n) + 1
+    i
+    Z = Z + B_exp;
+    B_exp = B_exp*B;
+    %Z = Z + B^i;
 end
 
 X = sparse(n*steps + 1, n);
@@ -55,8 +59,6 @@ for row = 1:num_pairs
     % term_nodes connect to t (n*steps + 1)
     copy_B(term_nodes, n*steps + 1) =1;
     [nodes, new_s, new_t, new_B] = get_st_neighborhood(Z, copy_B,source,terminal,n, steps);
-    %spy(Z(9,:))
-    
     if new_s > 0
         [~, new_n] = size(new_B);
         [cen] = st_biased_random_walk_BC(new_B, new_n, new_s, new_t);
@@ -65,8 +67,8 @@ for row = 1:num_pairs
         centrality_B = centrality_B + parTemp;
    end
 end
-[n, ~] = size(cen);
-[[1:n]' cen];
+[n, ~] = size(centrality_B);
+%[[0:n-1]' centrality_B]
 c_end   = centrality_B(end);
 centrality_B = centrality_B/c_end;
 centrality = centrality_B'*X;

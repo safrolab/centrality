@@ -26,7 +26,7 @@ def  get_centrality_from_file(graph, centrality_file):
 
 
 def rank_nonleafnodes(nonleaf_nodes, centrality_dict):
-
+    '''
     val_node = sorted([(centrality_dict[node] , indx, node)
                       for indx, node in enumerate(nonleaf_nodes)],
                      reverse = True)
@@ -35,6 +35,9 @@ def rank_nonleafnodes(nonleaf_nodes, centrality_dict):
     ranking = [0 for i in range(n)]
     for i in range(n):
         ranking[indx_rank[i]] = i + 1
+    '''
+    val_node = [centrality_dict[node] for node in nonleaf_nodes]
+    ranking = sc.rankdata(val_node, method = 'min')
     return ranking
 
 def compute_stats(rank1, rank2):
@@ -66,23 +69,24 @@ def randomwalk_stats_birth(graph):
     
     for iratio, scenario in file_nos_birth:
         filetag = str(iratio) + '_' + str(scenario)
-        katfile = data_dir + 'katz' + filetag + '.txt'
-        katz_dict = get_centrality_from_file(graph, katfile)
-        katz_dict = scale_centrality(katz_dict)
-        katz_rank = rank_nonleafnodes(nonleafnodes, katz_dict)
+        RWBCfile = data_dir + 'RWBC' + filetag + '.txt'
+        RWBC_dict = get_centrality_from_file(graph, RWBCfile)
+        RWBC_dict = scale_centrality(RWBC_dict)
+        RWBC_rank = rank_nonleafnodes(nonleafnodes, RWBC_dict)
         for birth in file_nos_birth[(iratio, scenario)]:
             congetionfile = data_dir + 'congetion' + filetag \
                           + '_' + str(birth) + '.txt'
             congetion_dict = get_centrality_from_file(graph, congetionfile)
             congetion_dict = scale_centrality(congetion_dict)
             congetion_rank = rank_nonleafnodes(nonleafnodes, congetion_dict)
-            kendall, spearman = compute_stats(katz_rank, congetion_rank)
+            kendall, spearman = compute_stats(RWBC_rank, congetion_rank)
             print kendall.correlation, spearman.correlation
-            for node in graph.nodes():
-                print node, katz_dict[node], congetion_dict[node]
+            #for node in graph.nodes():
+            #    print node, RWBC_dict[node], congetion_dict[node]
 
-def randomwalk_stats(graph):
-    data_dir = 'post_data/example/randomwalks/'
+def randomwalk_stats(graph, graphname):
+
+    data_dir = 'post_data/' + graphname + '/randomwalks/'
     file_nos= []
     nonleafnodes = get_nonleaf_nodes(graph)
     for myfile in os.listdir(data_dir):
@@ -95,26 +99,30 @@ def randomwalk_stats(graph):
     
     for iratio, scenario in file_nos:
         filetag = str(iratio) + '_' + str(scenario)
-        katfile = data_dir + 'katz' + filetag + '.txt'
-        katz_dict = get_centrality_from_file(graph, katfile)
-        katz_dict = scale_centrality(katz_dict)
-        katz_rank = rank_nonleafnodes(nonleafnodes, katz_dict)
-
+        RWBCfile = data_dir + 'RWBC' + filetag + '.txt'
+        RWBC_dict = get_centrality_from_file(graph, RWBCfile)
+        RWBC_dict = scale_centrality(RWBC_dict)
         congetionfile = data_dir + 'counter' + filetag + '.txt'
         congetion_dict = get_centrality_from_file(graph, congetionfile)
         congetion_dict = scale_centrality(congetion_dict)
+        RWBC_rank = rank_nonleafnodes(nonleafnodes, RWBC_dict)
         congetion_rank = rank_nonleafnodes(nonleafnodes, congetion_dict)
-        kendall, spearman = compute_stats(katz_rank, congetion_rank)
+        kendall, spearman = compute_stats(RWBC_rank, congetion_rank)
         print kendall.correlation, spearman.correlation
-        for node in graph.nodes():
-            print node, katz_dict[node], congetion_dict[node]
+        #for i in range(len(nonleafnodes)):
+        #    node = nonleafnodes[i]
+        #s    print node, RWBC_rank[i], congetion_rank[i], '\t \t', RWBC_dict[node], congetion_dict[node]
+
                 
 
 if __name__ == '__main__':
-    graph = nx.davis_southern_women_graph()
-    graph = nx.DiGraph(graph)
+    #graph = nx.davis_southern_women_graph()
+    #graph = nx.DiGraph(graph)
     #graphfile = '../../data/p2p-Gnutella08.txt'
-    #graph = nx.read_edgelist(graphfile, nodetype=int, create_using=nx.DiGraph())
-    graph = max(nx.weakly_connected_component_subgraphs(graph), key = len)
-    graph = nx.convert_node_labels_to_integers(graph, first_label = 0)
-    randomwalk_stats(graph)
+    graphfile = 'p2p-Gnutella08.txt'
+    graphname = 'p2p-Gnutella08'
+    print graphname
+    graph = nx.read_edgelist(graphfile, nodetype=int, create_using=nx.DiGraph())
+    #graph = max(nx.weakly_connected_component_subgraphs(graph), key = len)
+    #graph = nx.convert_node_labels_to_integers(graph, first_label = 0, ordering='sorted')
+    randomwalk_stats(graph, graphname)

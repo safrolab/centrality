@@ -32,11 +32,12 @@ def counter_to_file(counter, outdir, filetag):
     myfile.close()
 
      
-def experiment(graph):
+def experiment(graph, graphname):
     # read walk files
     # increment counter
-    data_dir = 'pre_data/example/randomwalks/'
-    outdir = 'post_data/example/randomwalks/'
+    data_dir = 'pre_data/' + graphname + '/randomwalks/'
+    outdir = 'post_data/' + graphname +'/randomwalks/'
+
     file_nos = []
     for myfile in os.listdir(data_dir):
         if myfile.endswith(".txt"):
@@ -54,13 +55,15 @@ def experiment(graph):
 
     
 if __name__ == '__main__':
-    graph = nx.davis_southern_women_graph()
-    graph = nx.DiGraph(graph)
+    #graph = nx.davis_southern_women_graph()
+    #graph = nx.DiGraph(graph)
     #graphfile = '../../data/p2p-Gnutella08.txt'
-    #graphname = 'p2p-Gnutella08'
-    graphname = 'example'
+    graphfile = 'p2p-Gnutella08.txt'
+    graphname = 'p2p-Gnutella08'
+    #graphname = 'example'
+    print graphname
     walktype = 'random'
-    #graph = nx.read_edgelist(graphfile, nodetype=int, create_using=nx.DiGraph())
-    graph = max(nx.weakly_connected_component_subgraphs(graph), key = len)
-    graph = nx.convert_node_labels_to_integers(graph, first_label = 0)
-    experiment(graph)
+    graph = nx.read_edgelist(graphfile, nodetype=int, create_using=nx.DiGraph())
+    #graph = max(nx.weakly_connected_component_subgraphs(graph), key = len)
+    #graph = nx.convert_node_labels_to_integers(graph, first_label = 0, ordering='sorted')
+    experiment(graph, graphname)

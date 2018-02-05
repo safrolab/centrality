@@ -122,6 +122,14 @@ def write_files_fixed_source(graph, graphname, walktype):
                     if len(walk) > 0:
                         append_walk2file(walkfile_adr, walk)
 
+def valid_walk(graph, walk):
+  """For Debugging: Check if all edges in walk exist in graph. 
+  Note: The walk 1 -> 2 -> 3 is given as walk = [3, 2, 1]
+  """
+  for i, k in enumerate(walk[:-1]):
+    if not graph.has_edge(walk[i + 1], walk[i]):
+      return False
+  return True
 
 def write_s_t_random_walks(graph, graphname, walktype):
     """
@@ -130,12 +138,12 @@ def write_s_t_random_walks(graph, graphname, walktype):
         graphname/randomwalks/install1_1.txt  # contains WCU install locations
         graphname/randomwalks/source_target1_1.txt # contains source nodes
     """
-    full_soc = 3
+    full_soc = 4
     num_walks = 200  # number random walks per (s, t) pair
     num_scenarios = 1
     num_st_pairs = 1  # number of (s, t) pairs for each scenario
     #I_Ratios = [0.01, 0.05, 0.1, 0.2, 0.4, 0.8]
-    I_Ratios = [0.2]
+    I_Ratios = [0.1]
     candidate_source_nodes = nonleaf_nodes(graph)
     used_pairs = {}
     for install_ratio in I_Ratios:
@@ -148,6 +156,7 @@ def write_s_t_random_walks(graph, graphname, walktype):
                            + '_' + str(scenario_no) + '.txt'
             walkfile = open(walkfile_adr, 'w')
             install_nodes = random.sample(graph.nodes(), num_install)
+            #install_nodes = [5, 11, 23, 6, 9, 4, 12]
             print 'install_nodes:', install_nodes
             install_dict = dict.fromkeys(graph.nodes(), False)
             for node in install_nodes:
@@ -164,6 +173,8 @@ def write_s_t_random_walks(graph, graphname, walktype):
             for _ in range(num_st_pairs):
                 s = random.choice(candidate_source_nodes)
                 t = random.choice(graph.nodes())
+                #s = 26
+                #t = 24
                 print s,t
                 if s != t:
                     if (s, t) not in used_pairs:
@@ -177,6 +188,8 @@ def write_s_t_random_walks(graph, graphname, walktype):
                                      full_soc,
                                      s, t,
                                      walktype)
+                                if not valid_walk(graph, walk):
+                                  print 'walk not valid'
                                 append_walk2file(walkfile_adr, walk)
                         else:
                             print 'no feasible path', s, t
@@ -249,17 +262,22 @@ def nonleaf_nodes(graph):
 
       
 if __name__ == '__main__':
-    graph = nx.davis_southern_women_graph()
-    graph = nx.DiGraph(graph)
+    #graph = nx.davis_southern_women_graph()
+    #graph = nx.DiGraph(graph)
     #graphfile = '../../data/p2p-Gnutella08.txt'
-    #graphname = 'p2p-Gnutella08'
-    graphname = 'example'
-    #walktype = 'random'
-    walktype = 'random_path'
+    graphfile = 'p2p-Gnutella08.txt'
+    graphname = 'p2p-Gnutella08'
+    #graphname = 'example'
+    walktype = 'random'
+    #walktype = 'random_path'
     print graphname
-    #graph = nx.read_edgelist(graphfile, nodetype=int, create_using=nx.DiGraph())
-    graph = max(nx.weakly_connected_component_subgraphs(graph), key=len)
-    graph = nx.convert_node_labels_to_integers(graph, first_label=0)
+    graph = nx.read_edgelist(graphfile, nodetype=int, create_using=nx.DiGraph())
+    #graph = max(nx.weakly_connected_component_subgraphs(graph), key=len)
+    #graph = nx.convert_node_labels_to_integers(graph, first_label=0, ordering='sorted')
+    #myfile = open(graphname + '.txt', 'w')
+    #for u, v in sorted(graph.edges()):
+    #  myfile.write(str(u) + ' ' + str(v) +  '\n')
+    #myfile.close()
     #write_files(graph, graphname)
     #write_files_fixed_source(graph, graphname, walktype)
     write_s_t_random_walks(graph, graphname, walktype)

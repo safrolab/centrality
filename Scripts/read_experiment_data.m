@@ -9,12 +9,16 @@ data to read:
 %}
 %myCluster=parcluster('local');
 %parpool(myCluster,myCluster.NumWorkers);
-load('davis_southern_women_graph.mat');
-A(A>0) = 1;
-full_soc = 3;
+%load('davis_southern_women_graph.mat'); <- DO NOT LOAD, index problem
+%A = davis_southern_women_graph();
+[A] = edgefile2mat('p2p-Gnutella08.txt');
+%A(A>0) = 1;
+full_soc = 4;
 %  read files from dir
+%mydir = ['/home/hushiji/Research/centrality/'...
+%'Scripts/python_scripts/congestion/pre_data/example/randomwalks/'];
 mydir = ['/home/hushiji/Research/centrality/'...
-'Scripts/python_scripts/congestion/pre_data/example/randomwalks/'];
+'Scripts/python_scripts/congestion/pre_data/p2p-Gnutella08/randomwalks/'];
 files = dir(strcat(mydir, '*.txt'));
 [no_pair_files, ~] = size(files);
 no_pair_files = no_pair_files/3;
@@ -30,8 +34,10 @@ for file = files'  % what files are in local dir
 end
 %install_nodes
 %st_pairs
+%katzdir  = ['/home/hushiji/Research/centrality/'...
+%'Scripts/python_scripts/congestion/post_data/example/randomwalks/'];
 katzdir  = ['/home/hushiji/Research/centrality/'...
-'Scripts/python_scripts/congestion/post_data/example/randomwalks/'];
+'Scripts/python_scripts/congestion/post_data/p2p-Gnutella08/randomwalks/'];
 for row = 1:no_pair_files
     ratio = num2str(ratio_scene(row, 1));
     scenario = num2str(ratio_scene(row, 2));
@@ -50,5 +56,5 @@ for row = 1:no_pair_files
     fclose(fileID);
 end
 [n, ~]= size(centrality);
-[[0:n-1]' centrality]
+[[0:n-1]' centrality];
 end
