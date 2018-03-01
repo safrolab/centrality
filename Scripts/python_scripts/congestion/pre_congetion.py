@@ -38,6 +38,13 @@ class Queue:
 
       
 def read_feasible_walks(filename):
+    """ Reads feasible walks from file
+
+    Returns:
+    feasible_walks - feasible_walks[walk_id] = [<feasible_walk>]
+    feasible_walks_source - feasible_walks_source[source]
+        = [[<feasible_walk1>], [<feasible_walk2>], ..., [<feasible_walkN>]]
+    """
     myfile = open(filename, 'r')
     walk_id = 0
     feasible_walks = {}
@@ -58,6 +65,13 @@ def read_feasible_walks(filename):
 
 
 def get_install_dict(graph, filename):
+    """ Read install dict from file
+
+    Return:
+        install_dict - install_dict[node] = True/False
+        install_nodes - list of install nodes
+
+    """
     install_nodes = np.genfromtxt(filename, dtype='int')
     install_nodes = install_nodes.tolist()
     install_dict = dict.fromkeys(graph.nodes(), False)
@@ -71,6 +85,7 @@ def get_install_dict(graph, filename):
 
 
 def get_source_nodes(graph, filename):
+    """Read source nodes from file. """
     return list(np.genfromtxt(filename, dtype='int'))
 
 
@@ -83,6 +98,20 @@ def particle_time_step_fixed_source(graph,
 
     At each step, a single particle in each occupied node, moves to a
     neighboring node.
+
+    Nodes are occupied in by Queue
+
+    Returns:
+        occupied_streets - dict of occupied nodes
+            occupied_streets[<street_id>] = Queue()
+        Routes - dict of Routes
+            Routes[<route_id>] = [<feasible_walk>] 
+        max_counter - dict, max length of Queue so far
+            max_counter[<node_id>] = k
+        average_counter - dict, total lenghths of Queue's so far
+            average_counter[<node_id>] = k
+
+    NOTE: average_counter increments by size of current Queue
     """
 
     for street in occupied_streets.keys():
@@ -120,6 +149,7 @@ def particle_birth_fixed_source(graph,
                                 num_feasible_walks,
                                 num_avail_source,
                                 birth_type):
+    """ particle birth"""
     if birth_type == 'walk_at_random':
         max_route_id = Routes['max_id']
         for i in range(num_new_routes):
